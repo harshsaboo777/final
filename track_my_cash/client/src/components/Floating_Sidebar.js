@@ -1,6 +1,4 @@
 import React from "react";
-import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css';
 import "../componentsStyles/floating_sidebar.css";
 import SettingsIcon from '@mui/icons-material/Settings';
 import Add_Group_expense from "./Add_Group_expense";
