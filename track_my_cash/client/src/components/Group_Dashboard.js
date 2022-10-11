@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import Floating_Sidebar from "./Floating_Sidebar";
 import Modal from "./Modal";
@@ -11,9 +11,8 @@ const GroupDashBoard = () => {
 		<React.Fragment>
 			<div>
 				<Sidebar />
-				<Floating_Sidebar />
+				<Floating_Sidebar logo={{ flag: true }} />
 				{modalOpen && <Modal setOpenModal={setModalOpen} />}
-
 
 				<div className="container mt-4">
 					<div className="card">
@@ -24,130 +23,201 @@ const GroupDashBoard = () => {
 									<div className="card detail-card">
 										<div className="card-body">
 											<div className="row detail-head">
-												<div className="col-md-10"> Memeber 1</div>
-												<div className="col-md-2 d-flex justify-content-end">225.00 INR</div>
-
+												<div className="col-md-10">
+													{" "}
+													Memeber 1
+												</div>
+												<div className="col-md-2 d-flex justify-content-end">
+													225.00 INR
+												</div>
 											</div>
 											<div className="row mt-2 detail-foot ">
-												<div className="col-md-10"> Party</div>
-												<div className="col-md-2 d-flex justify-content-end">31 Jan,2021</div>
-
+												<div className="col-md-10">
+													{" "}
+													Party
+												</div>
+												<div className="col-md-2 d-flex justify-content-end">
+													31 Jan,2021
+												</div>
 											</div>
 										</div>
 									</div>
 									<div className="card detail-card">
 										<div className="card-body">
 											<div className="row detail-head">
-												<div className="col-md-10"> Memeber 1</div>
-												<div className="col-md-2 d-flex justify-content-end">225.00 INR</div>
-
+												<div className="col-md-10">
+													{" "}
+													Memeber 1
+												</div>
+												<div className="col-md-2 d-flex justify-content-end">
+													225.00 INR
+												</div>
 											</div>
 											<div className="row mt-2 detail-foot ">
-												<div className="col-md-10"> Party</div>
-												<div className="col-md-2 d-flex justify-content-end">31 Jan,2021</div>
-
+												<div className="col-md-10">
+													{" "}
+													Party
+												</div>
+												<div className="col-md-2 d-flex justify-content-end">
+													31 Jan,2021
+												</div>
 											</div>
 										</div>
 									</div>
 									<div className="card detail-card">
 										<div className="card-body">
 											<div className="row detail-head">
-												<div className="col-md-10"> Memeber 1</div>
-												<div className="col-md-2 d-flex justify-content-end">225.00 INR</div>
-
+												<div className="col-md-10">
+													{" "}
+													Memeber 1
+												</div>
+												<div className="col-md-2 d-flex justify-content-end">
+													225.00 INR
+												</div>
 											</div>
 											<div className="row mt-2 detail-foot ">
-												<div className="col-md-10"> Party</div>
-												<div className="col-md-2 d-flex justify-content-end">31 Jan,2021</div>
-
+												<div className="col-md-10">
+													{" "}
+													Party
+												</div>
+												<div className="col-md-2 d-flex justify-content-end">
+													31 Jan,2021
+												</div>
 											</div>
 										</div>
 									</div>
 									<div className="card detail-card">
 										<div className="card-body">
 											<div className="row detail-head">
-												<div className="col-md-10"> Memeber 1</div>
-												<div className="col-md-2 d-flex justify-content-end">225.00 INR</div>
-
+												<div className="col-md-10">
+													{" "}
+													Memeber 1
+												</div>
+												<div className="col-md-2 d-flex justify-content-end">
+													225.00 INR
+												</div>
 											</div>
 											<div className="row mt-2 detail-foot ">
-												<div className="col-md-10"> Party</div>
-												<div className="col-md-2 d-flex justify-content-end">31 Jan,2021</div>
-
+												<div className="col-md-10">
+													{" "}
+													Party
+												</div>
+												<div className="col-md-2 d-flex justify-content-end">
+													31 Jan,2021
+												</div>
 											</div>
 										</div>
 									</div>
 									<div className="card detail-card">
 										<div className="card-body">
 											<div className="row detail-head">
-												<div className="col-md-10"> Memeber 1</div>
-												<div className="col-md-2 d-flex justify-content-end">225.00 INR</div>
-
+												<div className="col-md-10">
+													{" "}
+													Memeber 1
+												</div>
+												<div className="col-md-2 d-flex justify-content-end">
+													225.00 INR
+												</div>
 											</div>
 											<div className="row mt-2 detail-foot ">
-												<div className="col-md-10"> Party</div>
-												<div className="col-md-2 d-flex justify-content-end">31 Jan,2021</div>
-
+												<div className="col-md-10">
+													{" "}
+													Party
+												</div>
+												<div className="col-md-2 d-flex justify-content-end">
+													31 Jan,2021
+												</div>
 											</div>
 										</div>
 									</div>
 									<div className="card detail-card">
 										<div className="card-body">
 											<div className="row detail-head">
-												<div className="col-md-10"> Memeber 1</div>
-												<div className="col-md-2 d-flex justify-content-end">225.00 INR</div>
-
+												<div className="col-md-10">
+													{" "}
+													Memeber 1
+												</div>
+												<div className="col-md-2 d-flex justify-content-end">
+													225.00 INR
+												</div>
 											</div>
 											<div className="row mt-2 detail-foot ">
-												<div className="col-md-10"> Party</div>
-												<div className="col-md-2 d-flex justify-content-end">31 Jan,2021</div>
-
+												<div className="col-md-10">
+													{" "}
+													Party
+												</div>
+												<div className="col-md-2 d-flex justify-content-end">
+													31 Jan,2021
+												</div>
 											</div>
 										</div>
 									</div>
 									<div className="card detail-card">
 										<div className="card-body">
 											<div className="row detail-head">
-												<div className="col-md-10"> Memeber 1</div>
-												<div className="col-md-2 d-flex justify-content-end">225.00 INR</div>
-
+												<div className="col-md-10">
+													{" "}
+													Memeber 1
+												</div>
+												<div className="col-md-2 d-flex justify-content-end">
+													225.00 INR
+												</div>
 											</div>
 											<div className="row mt-2 detail-foot ">
-												<div className="col-md-10"> Party</div>
-												<div className="col-md-2 d-flex justify-content-end">31 Jan,2021</div>
-
+												<div className="col-md-10">
+													{" "}
+													Party
+												</div>
+												<div className="col-md-2 d-flex justify-content-end">
+													31 Jan,2021
+												</div>
 											</div>
 										</div>
 									</div>
 									<div className="card detail-card">
 										<div className="card-body">
 											<div className="row detail-head">
-												<div className="col-md-10"> Memeber 1</div>
-												<div className="col-md-2 d-flex justify-content-end">225.00 INR</div>
-
+												<div className="col-md-10">
+													{" "}
+													Memeber 1
+												</div>
+												<div className="col-md-2 d-flex justify-content-end">
+													225.00 INR
+												</div>
 											</div>
 											<div className="row mt-2 detail-foot ">
-												<div className="col-md-10"> Party</div>
-												<div className="col-md-2 d-flex justify-content-end">31 Jan,2021</div>
-
+												<div className="col-md-10">
+													{" "}
+													Party
+												</div>
+												<div className="col-md-2 d-flex justify-content-end">
+													31 Jan,2021
+												</div>
 											</div>
 										</div>
 									</div>
 									<div className="card detail-card">
 										<div className="card-body">
 											<div className="row detail-head">
-												<div className="col-md-10"> Memeber 1</div>
-												<div className="col-md-2 d-flex justify-content-end">225.00 INR</div>
-
+												<div className="col-md-10">
+													{" "}
+													Memeber 1
+												</div>
+												<div className="col-md-2 d-flex justify-content-end">
+													225.00 INR
+												</div>
 											</div>
 											<div className="row mt-2 detail-foot ">
-												<div className="col-md-10"> Party</div>
-												<div className="col-md-2 d-flex justify-content-end">31 Jan,2021</div>
-
+												<div className="col-md-10">
+													{" "}
+													Party
+												</div>
+												<div className="col-md-2 d-flex justify-content-end">
+													31 Jan,2021
+												</div>
 											</div>
 										</div>
 									</div>
-									
 								</div>
 								{/* <div className="col-md-1 border"></div> */}
 							</div>
