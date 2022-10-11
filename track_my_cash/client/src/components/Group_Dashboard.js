@@ -1,13 +1,19 @@
-import React from "react";
+import React,{useState} from "react";
 import Sidebar from "./Sidebar";
 import Floating_Sidebar from "./Floating_Sidebar";
+import Modal from "./Modal";
 import "../componentsStyles/group_dashboard.css";
+
 const GroupDashBoard = () => {
+	const [modalOpen, setModalOpen] = useState(false);
+
 	return (
 		<React.Fragment>
 			<div>
 				<Sidebar />
 				<Floating_Sidebar />
+				{modalOpen && <Modal setOpenModal={setModalOpen} />}
+
 
 				<div className="container mt-4">
 					<div className="card">

@@ -1,17 +1,44 @@
 import React from "react";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 import "../componentsStyles/floating_sidebar.css";
 import SettingsIcon from '@mui/icons-material/Settings';
+import Add_Group_expense from "./Add_Group_expense";
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';import BalanceIcon from '@mui/icons-material/Balance';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';const Floating_Sidebar = () => {
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import Modal from "./Modal";
+import { useState } from 'react';
+const Floating_Sidebar = () => {
+	const [modalOpen, setModalOpen] = useState(false);
+
 	return (
 		<>
-			<div id="floating-panel2">
+		<div>
+
+		{modalOpen && <Modal setOpenModal={setModalOpen} />}
+
+		<div id="floating-panel2">
 				<div className="floating-icon">
 				<InfoOutlinedIcon fontSize="large" sx={{color:'#ffff'}}/>
 
 				</div>
 				<div className="floating-icon">
-				<AddCircleOutlineOutlinedIcon fontSize="large" sx={{color:'#ffff'}}/>
+				<button
+        className="openModalBtn"
+        onClick={() => {
+          setModalOpen(true);
+        }}
+      >
+        <AddCircleOutlineOutlinedIcon fontSize="large" sx={{color:'#ffff'}}/>
+      </button>
+	  
+
+
+{/* 
+					<Popup trigger={<button><AddCircleOutlineOutlinedIcon fontSize="large" sx={{color:'#ffff'}}/></button>}>
+						<Add_Group_expense />
+					</Popup> */}
+					
 
 				</div>
 				<div className="floating-icon">
@@ -26,6 +53,12 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';const Floating_S
 				
 				{/* <h1>P4</h1> */}
 			</div>
+
+
+
+
+		</div>
+			
 		</>
 	);
 };
