@@ -3,19 +3,23 @@ import React from "react";
 // import 'reactjs-popup/dist/index.css';
 import "../componentsStyles/floating_sidebar.css";
 import SettingsIcon from "@mui/icons-material/Settings";
-import Add_Group_expense from "./Add_Group_expense";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import BalanceIcon from "@mui/icons-material/Balance";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import Modal from "./Modal";
+import AddGroupExpense from "./Add_Group_expense";
 import { useState } from "react";
-const Floating_Sidebar = ({ logo }) => {
+const Floating_Sidebar = ({ logo, state, setState }) => {
 	const [modalOpen, setModalOpen] = useState(false);
-
 	return (
 		<>
 			<div>
-				{modalOpen && <Modal setOpenModal={setModalOpen} />}
+				{modalOpen && (
+					<AddGroupExpense
+						setOpenModal={setModalOpen}
+						state={state}
+						setState={setState}
+					/>
+				)}
 
 				<div id="floating-panel2">
 					<div className="floating-icon">
