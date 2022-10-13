@@ -6,8 +6,12 @@ import BalanceIcon from "@mui/icons-material/Balance";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import AddGroupExpense from "./Add_Group_expense";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 const Floating_Sidebar = ({ logo, state, setState }) => {
 	const [modalOpen, setModalOpen] = useState(false);
+	const navigate = useNavigate();
+
 	return (
 		<>
 			<div>
@@ -50,7 +54,9 @@ const Floating_Sidebar = ({ logo, state, setState }) => {
 					)}
 
 					<div className="floating-icon">
-						<BalanceIcon fontSize="large" sx={{ color: "#ffff" }} />
+						
+					<button className="openModalBtn" onClick={() => navigate("/Evaluate")}><BalanceIcon fontSize="large" sx={{ color: "#ffff" }} /></button>
+						
 					</div>
 
 					<SettingsIcon fontSize="large" sx={{ color: "#ffff" }} />
