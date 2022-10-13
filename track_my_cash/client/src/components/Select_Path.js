@@ -3,9 +3,13 @@ import Sidebar from './Sidebar'
 import GroupsIcon from '@mui/icons-material/Groups';
 import PersonIcon from '@mui/icons-material/Person';
 import '../componentsStyles/select_path.css';
+import { useNavigate } from "react-router-dom";
+
 
 
 function Select_Path() {
+  const navigate = useNavigate();
+
   return (
     <div>
        <React.Fragment>
@@ -18,7 +22,7 @@ function Select_Path() {
                           My Expenses
                         </div>
                         <div className='select_button mt-5'>
-                          SELECT
+                        <button onClick={() => navigate("/Group")}>SELECT</button>
                         </div>
                         
                     </div>
@@ -29,7 +33,7 @@ function Select_Path() {
                         </div>
                         <div className='select_button mt-5'>
                           
-                          SELECT
+                        <button onClick={() => navigate("/Group")}>SELECT</button>
                         </div>
                     </div>
                 

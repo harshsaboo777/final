@@ -1,14 +1,12 @@
 import React from "react";
 import Sidebar from "./Sidebar";
-import Floating_Sidebar from "./Floating_Sidebar";
 
 function Evaluation() {
 	return (
 		<React.Fragment>
 			<div>
 				<Sidebar />
-				<Floating_Sidebar logo={{ flag: false }} />
-
+				
 				<div className="container mt-4">
 					<div className="card">
 						{/* <div className="card-header">Featured</div> */}
