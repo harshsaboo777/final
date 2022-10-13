@@ -1,18 +1,26 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
-import Floating_Sidebar from "./Floating_Sidebar";
-import Modal from "./Modal";
+import FloatingSidebar from "./Floating_Sidebar";
 import "../componentsStyles/group_dashboard.css";
+import ExpenseCard from "./Expense_Card";
+import members from "./tempMembers";
+// import members from "./Add_Group_expense";
 
 const GroupDashBoard = () => {
-	const [modalOpen, setModalOpen] = useState(false);
-
+	const [membersArr, setmembersArr] = useState(members);
+	const onChangeState = (newState) => {
+		setmembersArr(newState);
+		console.log(membersArr);
+	};
 	return (
 		<React.Fragment>
 			<div>
 				<Sidebar />
-				<Floating_Sidebar logo={{ flag: true }} />
-				{modalOpen && <Modal setOpenModal={setModalOpen} />}
+				<FloatingSidebar
+					logo={{ flag: true }}
+					state={membersArr}
+					setState={onChangeState}
+				/>
 
 				<div className="container mt-4">
 					<div className="card">
@@ -20,206 +28,10 @@ const GroupDashBoard = () => {
 						<div className="card-body">
 							<div className="row">
 								<div className="col-md-12">
-									<div className="card detail-card">
-										<div className="card-body">
-											<div className="row detail-head">
-												<div className="col-md-10">
-													{" "}
-													Memeber 1
-												</div>
-												<div className="col-md-2 d-flex justify-content-end">
-													225.00 INR
-												</div>
-											</div>
-											<div className="row mt-2 detail-foot ">
-												<div className="col-md-10">
-													{" "}
-													Party
-												</div>
-												<div className="col-md-2 d-flex justify-content-end">
-													31 Jan,2021
-												</div>
-											</div>
-										</div>
-									</div>
-									<div className="card detail-card">
-										<div className="card-body">
-											<div className="row detail-head">
-												<div className="col-md-10">
-													{" "}
-													Memeber 1
-												</div>
-												<div className="col-md-2 d-flex justify-content-end">
-													225.00 INR
-												</div>
-											</div>
-											<div className="row mt-2 detail-foot ">
-												<div className="col-md-10">
-													{" "}
-													Party
-												</div>
-												<div className="col-md-2 d-flex justify-content-end">
-													31 Jan,2021
-												</div>
-											</div>
-										</div>
-									</div>
-									<div className="card detail-card">
-										<div className="card-body">
-											<div className="row detail-head">
-												<div className="col-md-10">
-													{" "}
-													Memeber 1
-												</div>
-												<div className="col-md-2 d-flex justify-content-end">
-													225.00 INR
-												</div>
-											</div>
-											<div className="row mt-2 detail-foot ">
-												<div className="col-md-10">
-													{" "}
-													Party
-												</div>
-												<div className="col-md-2 d-flex justify-content-end">
-													31 Jan,2021
-												</div>
-											</div>
-										</div>
-									</div>
-									<div className="card detail-card">
-										<div className="card-body">
-											<div className="row detail-head">
-												<div className="col-md-10">
-													{" "}
-													Memeber 1
-												</div>
-												<div className="col-md-2 d-flex justify-content-end">
-													225.00 INR
-												</div>
-											</div>
-											<div className="row mt-2 detail-foot ">
-												<div className="col-md-10">
-													{" "}
-													Party
-												</div>
-												<div className="col-md-2 d-flex justify-content-end">
-													31 Jan,2021
-												</div>
-											</div>
-										</div>
-									</div>
-									<div className="card detail-card">
-										<div className="card-body">
-											<div className="row detail-head">
-												<div className="col-md-10">
-													{" "}
-													Memeber 1
-												</div>
-												<div className="col-md-2 d-flex justify-content-end">
-													225.00 INR
-												</div>
-											</div>
-											<div className="row mt-2 detail-foot ">
-												<div className="col-md-10">
-													{" "}
-													Party
-												</div>
-												<div className="col-md-2 d-flex justify-content-end">
-													31 Jan,2021
-												</div>
-											</div>
-										</div>
-									</div>
-									<div className="card detail-card">
-										<div className="card-body">
-											<div className="row detail-head">
-												<div className="col-md-10">
-													{" "}
-													Memeber 1
-												</div>
-												<div className="col-md-2 d-flex justify-content-end">
-													225.00 INR
-												</div>
-											</div>
-											<div className="row mt-2 detail-foot ">
-												<div className="col-md-10">
-													{" "}
-													Party
-												</div>
-												<div className="col-md-2 d-flex justify-content-end">
-													31 Jan,2021
-												</div>
-											</div>
-										</div>
-									</div>
-									<div className="card detail-card">
-										<div className="card-body">
-											<div className="row detail-head">
-												<div className="col-md-10">
-													{" "}
-													Memeber 1
-												</div>
-												<div className="col-md-2 d-flex justify-content-end">
-													225.00 INR
-												</div>
-											</div>
-											<div className="row mt-2 detail-foot ">
-												<div className="col-md-10">
-													{" "}
-													Party
-												</div>
-												<div className="col-md-2 d-flex justify-content-end">
-													31 Jan,2021
-												</div>
-											</div>
-										</div>
-									</div>
-									<div className="card detail-card">
-										<div className="card-body">
-											<div className="row detail-head">
-												<div className="col-md-10">
-													{" "}
-													Memeber 1
-												</div>
-												<div className="col-md-2 d-flex justify-content-end">
-													225.00 INR
-												</div>
-											</div>
-											<div className="row mt-2 detail-foot ">
-												<div className="col-md-10">
-													{" "}
-													Party
-												</div>
-												<div className="col-md-2 d-flex justify-content-end">
-													31 Jan,2021
-												</div>
-											</div>
-										</div>
-									</div>
-									<div className="card detail-card">
-										<div className="card-body">
-											<div className="row detail-head">
-												<div className="col-md-10">
-													{" "}
-													Memeber 1
-												</div>
-												<div className="col-md-2 d-flex justify-content-end">
-													225.00 INR
-												</div>
-											</div>
-											<div className="row mt-2 detail-foot ">
-												<div className="col-md-10">
-													{" "}
-													Party
-												</div>
-												<div className="col-md-2 d-flex justify-content-end">
-													31 Jan,2021
-												</div>
-											</div>
-										</div>
-									</div>
+									{membersArr.map((member) => {
+										return <ExpenseCard content={member} />;
+									})}
 								</div>
-								{/* <div className="col-md-1 border"></div> */}
 							</div>
 						</div>
 					</div>
@@ -230,3 +42,4 @@ const GroupDashBoard = () => {
 };
 
 export default GroupDashBoard;
+export { members };
