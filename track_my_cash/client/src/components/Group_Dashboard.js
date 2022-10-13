@@ -10,6 +10,7 @@ const GroupDashBoard = () => {
 	const [membersArr, setmembersArr] = useState(members);
 	const onChangeState = (newState) => {
 		setmembersArr(newState);
+		console.log(membersArr);
 	};
 	return (
 		<React.Fragment>
@@ -27,7 +28,7 @@ const GroupDashBoard = () => {
 						<div className="card-body">
 							<div className="row">
 								<div className="col-md-12">
-									{members.map((member) => {
+									{membersArr.map((member) => {
 										return <ExpenseCard content={member} />;
 									})}
 								</div>
