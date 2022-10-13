@@ -9,9 +9,14 @@ import GroupDashBoard from "./components/Group_Dashboard";
 import Home from "./components/Home";
 import { Routes, Route } from "react-router-dom";
 import Evaluation from "./components/Evaluation";
+import React, { useState } from "react";
 //import Select_Path from "./components/Select_Path";
 
 function App() {
+	const [LoginUser, setLoginUser] = useState({
+		email: "",
+		password: "",
+	});
 	return (
 		<>
 			{/* <Navbar /> */}
@@ -19,8 +24,23 @@ function App() {
 			<Routes>
 				<Route exact path="/SignUp" element={<SignUp />} />
 				<Route exact path="/Select_Path" element={<Select_Path />} />
-				<Route exact path="/" element={<Home />} />
-				<Route exact path="/Login" element={<Login />} />
+				<Route exact path="/home" element={<Home />} />
+				<Route
+					exact
+					path="/Login"
+					element={<Login setLoginUser={setLoginUser} />}
+				/>
+				<Route
+					exact
+					path="/"
+					element={
+						LoginUser && LoginUser.email ? (
+							<Select_Path />
+						) : (
+							<Login setLoginUser={setLoginUser} />
+						)
+					}
+				/>
 				<Route exact path="/Group" element={<GroupDashBoard />} />
 				<Route exact path="/Select" element={<Select_Path />} />
 				<Route exact path="/Evaluate" element={<Evaluation />} />
