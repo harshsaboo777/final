@@ -24,6 +24,8 @@ create table Groups(
     foreign key (Owner_id) references Member
 );
 INSERT INTO Groups(Owner_id,Name,Created_on) VALUES (1,'Project Group','2022-10-24');
+INSERT INTO Groups(Owner_id,Name,Created_on) VALUES (2,'Dinner Group','2022-10-24');
+INSERT INTO Groups(Owner_id,Name,Created_on) VALUES (3,'Rent Group','2022-10-24');
 Select * from Groups;
 
 create table Belongs_To(
@@ -35,6 +37,19 @@ create table Belongs_To(
     foreign key (Group_id) references Groups
 );
 insert into belongs_to values(1,1,0);
+insert into belongs_to values(2,1,0);
+insert into belongs_to values(4,1,0);
+insert into belongs_to values(5,1,0);
+insert into belongs_to values(3,2,0);
+insert into belongs_to values(2,2,0);
+insert into belongs_to values(5,2,0);
+insert into belongs_to values(1,2,0);
+insert into belongs_to values(1,3,0);
+insert into belongs_to values(2,3,0);
+insert into belongs_to values(3,3,0);
+insert into belongs_to values(4,3,0);
+insert into belongs_to values(5,3,0);
+
 
 create table Group_Expense(
     Expense_id bigserial,
@@ -49,6 +64,15 @@ create table Group_Expense(
     foreign key (Paid_by_mem_id) references member,
     foreign key (Added_by_mem_id) references member,
 );
+
+INSERT INTO Group_Expense(Group_id, Paid_by_mem_id,Added_by_mem_id,Amount,Remarks,Date) VALUES(1,1,1,1000,'TP','2022-10-24');
+INSERT INTO Group_Expense(Group_id, Paid_by_mem_id,Added_by_mem_id,Amount,Remarks,Date) VALUES(1,2,1,500,'TP','2022-10-24');
+INSERT INTO Group_Expense(Group_id, Paid_by_mem_id,Added_by_mem_id,Amount,Remarks,Date) VALUES(2,3,1,1000,'TP','2022-10-24');
+INSERT INTO Group_Expense(Group_id, Paid_by_mem_id,Added_by_mem_id,Amount,Remarks,Date) VALUES(2,1,1,100,'TP','2022-10-24');
+INSERT INTO Group_Expense(Group_id, Paid_by_mem_id,Added_by_mem_id,Amount,Remarks,Date) VALUES(3,1,1,1000,'TP','2022-10-24');
+INSERT INTO Group_Expense(Group_id, Paid_by_mem_id,Added_by_mem_id,Amount,Remarks,Date) VALUES(3,3,1,100,'TP','2022-10-24');
+INSERT INTO Group_Expense(Group_id, Paid_by_mem_id,Added_by_mem_id,Amount,Remarks,Date) VALUES(3,3,1,200,'TP','2022-10-24');
+INSERT INTO Group_Expense(Group_id, Paid_by_mem_id,Added_by_mem_id,Amount,Remarks,Date) VALUES(3,2,1,100,'TP','2022-10-24');
 
 create table shares(
     Expense_id bigserial,
