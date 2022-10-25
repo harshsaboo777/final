@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styles from "../componentsStyles/SignUp.module.css";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -26,11 +26,22 @@ const SignUp = () => {
 			[name]: value,
 		});
 	};
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		axios
+			.post("http://localhost:5000/auth/signUp", user)
+			.then((res) => {
+				alert(res.data);
+				navigate("/");
+			})
+			.catch((err) => {
+				alert("Email Already in use");
+			});
+	};
 	return (
 		<React.Fragment>
 			<div className={styles.container}>
 				<div className={styles.loginbox}>
-
 					<form method="POST" className={styles.loginemail}>
 						<p className={styles.logintext}>SignUp with email</p>
 						<div className={styles.inputgroup}>
@@ -54,7 +65,6 @@ const SignUp = () => {
 							/>
 						</div>
 						<div className={styles.inputgroup}>
-							
 							<input
 								type="date"
 								placeholder="Date of Birth"
@@ -84,12 +94,23 @@ const SignUp = () => {
 								required
 							/>
 						</div>
-						
+
+						<div className={styles.inputgroup}>
+							<input
+								type="text"
+								placeholder="Email"
+								name="email"
+								value={user.email}
+								onChange={handleChange}
+								required
+							/>
+						</div>
+
 						<div className={styles.inputgroup}>
 							<input
 								type="password"
-								placeholder="Password"
-								name="Password"
+								placeholder="password"
+								name="password"
 								value={user.password}
 								onChange={handleChange}
 								required
@@ -107,15 +128,19 @@ const SignUp = () => {
 							/>
 						</div>
 						<div className={styles.inputgroup}>
-							<button className={styles.btn} name="submit">
+							<button
+								className={styles.btn}
+								name="submit"
+								onClick={handleSubmit}
+							>
 								Login
 							</button>
 						</div>
 						<p className={styles.loginregistertext}>
 							Already have an account?{" "}
-							<button onClick={() => navigate("/Login")}>
-									Sign In
-								</button>
+							<button onClick={() => navigate("/")}>
+								Sign In
+							</button>
 						</p>
 					</form>
 				</div>
