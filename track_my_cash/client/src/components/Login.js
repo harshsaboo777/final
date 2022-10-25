@@ -10,16 +10,18 @@ import { useNavigate } from "react-router-dom";
 const Login = ({ setLoginUser }) => {
 	const navigate = useNavigate();
 	const [user, setuser] = useState({
+		mem_id: 0,
 		email: "",
 		password: "",
 	});
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		// console.log(user);
-		axios
+		await axios
 			.post("http://localhost:5000/auth/login", user)
 			.then((res) => {
-				alert(res.data);
+				alert("You are now Logged in.");
+				user.mem_id = res.data;
 				setLoginUser(user);
 			})
 			.catch((err) => {

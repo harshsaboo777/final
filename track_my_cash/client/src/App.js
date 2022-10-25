@@ -15,6 +15,7 @@ import GroupList from "./components/Group_List";
 
 function App() {
 	const [LoginUser, setLoginUser] = useState({
+		mem_id: 0,
 		email: "",
 		password: "",
 	});
@@ -28,22 +29,21 @@ function App() {
 				<Route exact path="/home" element={<Home />} />
 				<Route
 					exact
-					path="/Login"
-					element={<Login setLoginUser={setLoginUser} />}
-				/>
-				<Route
-					exact
 					path="/"
 					element={
 						LoginUser && LoginUser.email ? (
-							<Select_Path />
+							<Select_Path User={LoginUser} />
 						) : (
 							<Login setLoginUser={setLoginUser} />
 						)
 					}
 				/>
 				<Route exact path="/Group" element={<GroupDashBoard />} />
-				<Route exact path="/GroupList" element={<GroupList />} />
+				<Route
+					exact
+					path="/GroupList"
+					element={<GroupList User={LoginUser} />}
+				/>
 				<Route exact path="/Select" element={<Select_Path />} />
 				<Route exact path="/Evaluate" element={<Evaluation />} />
 			</Routes>

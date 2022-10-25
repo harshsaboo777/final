@@ -5,9 +5,8 @@ import PersonIcon from "@mui/icons-material/Person";
 import "../componentsStyles/select_path.css";
 import { useNavigate } from "react-router-dom";
 
-function Select_Path() {
+function Select_Path({ User }) {
 	const navigate = useNavigate();
-
 	return (
 		<div>
 			<React.Fragment>
@@ -28,7 +27,7 @@ function Select_Path() {
 							<PersonIcon style={{ fontSize: 350 }} />
 							<div className="display-4 header-text">Groups</div>
 							<div className="select_button mt-5">
-								<button onClick={() => navigate("/Group")}>
+								<button onClick={() => navigate("/GroupList")}>
 									SELECT
 								</button>
 							</div>

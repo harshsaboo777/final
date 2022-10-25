@@ -42,7 +42,7 @@ export const logInUser = async (req, res) => {
 	}
 	if (userExists.rowCount == 1) {
 		console.log(userExists.rows);
-		res.status(200).send("You are now logged in ");
+		res.status(200).send(userExists.rows[0].mem_id);
 	} else {
 		res.status(500).send("Wrong Email or Password");
 	}
