@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styles from "../componentsStyles/SignUp.module.css";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -14,8 +14,7 @@ const SignUp = () => {
 		Lname: "",
 		DOB: "",
 		Phone_Num: "",
-		DOB: "",
-		Salary: "",
+		Salary: 0,
 		email: "",
 		password: "",
 		Cpassword: "",
