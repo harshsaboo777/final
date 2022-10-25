@@ -1,12 +1,12 @@
 import client from "../db.js";
 
 export const getGroups = async (req, res) => {
-	let mem_id = req.body;
-	const groups = [];
+	let mem_id = req.body.mem_id;
+	let groups = [];
 	try {
 		groups = await client.query(
-			"Select group_id,amount_due,name from belongs_to natural join groups where mem_id=$1",
-			[mem_id]
+			"Select member.fname as owner_name,group_id,created_on,name from belongs_to natural join groups join member on groups.owner_id=member.mem_id where belongs_to.mem_id=$1 ",
+			[parseInt(mem_id)]
 		);
 	} catch (error) {
 		console.log(error);
@@ -15,7 +15,7 @@ export const getGroups = async (req, res) => {
 };
 
 export const showExpenses = async (req, res) => {
-	let group_id = req.body;
+	let group_id = req.params;
 	const expenses = [];
 	try {
 		expenses = await client.query(

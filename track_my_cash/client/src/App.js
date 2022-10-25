@@ -39,7 +39,11 @@ function App() {
 					}
 				/>
 				<Route exact path="/Group" element={<GroupDashBoard />} />
-				<Route exact path="/GroupList" element={<GroupList />} />
+				<Route
+					exact
+					path="/GroupList"
+					element={<GroupList User={LoginUser} />}
+				/>
 				<Route exact path="/Select" element={<Select_Path />} />
 				<Route exact path="/Evaluate" element={<Evaluation />} />
 			</Routes>
