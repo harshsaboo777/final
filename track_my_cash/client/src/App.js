@@ -14,6 +14,7 @@ import React, { useState } from "react";
 
 function App() {
 	const [LoginUser, setLoginUser] = useState({
+		mem_id: 0,
 		email: "",
 		password: "",
 	});
@@ -27,15 +28,10 @@ function App() {
 				<Route exact path="/home" element={<Home />} />
 				<Route
 					exact
-					path="/Login"
-					element={<Login setLoginUser={setLoginUser} />}
-				/>
-				<Route
-					exact
 					path="/"
 					element={
 						LoginUser && LoginUser.email ? (
-							<Select_Path />
+							<Select_Path User={LoginUser} />
 						) : (
 							<Login setLoginUser={setLoginUser} />
 						)
