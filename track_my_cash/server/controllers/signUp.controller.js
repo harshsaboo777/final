@@ -1,8 +1,7 @@
 import client from "../db.js";
 
 export const createUser = async (req, res) => {
-	const { email, password, user_fname, user_lname, dob, phone, salary } =
-		req.body;
+	const { fname, lname, dob, salary, phone_num, email, password } = req.body;
 	let exists;
 	try {
 		exists = await client.query(
@@ -20,8 +19,8 @@ export const createUser = async (req, res) => {
 		let newUser;
 		try {
 			newUser = await client.query(
-				"insert into Member(email,password,user_fname,user_lname,date_of_birth,phone_number,salary) values($1,$2,$3,$4,$5,$6,$7);",
-				[email, password, user_fname, user_lname, dob, phone, salary]
+				"INSERT INTO Member(Fname, Lname, DOB, Salary, Phone_Num, Email, Password) VALUES ($1,$2,$3,$4,$5,$6,$7);",
+				[fname, lname, dob, salary, phone_num, email, password]
 			);
 			res.status(200).send("User has been created");
 		} catch (err) {
