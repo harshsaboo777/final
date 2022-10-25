@@ -10,6 +10,7 @@ import Home from "./components/Home";
 import { Routes, Route } from "react-router-dom";
 import Evaluation from "./components/Evaluation";
 import React, { useState } from "react";
+import GroupList from "./components/Group_List";
 //import Select_Path from "./components/Select_Path";
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
 					}
 				/>
 				<Route exact path="/Group" element={<GroupDashBoard />} />
+				<Route exact path="/GroupList" element={<GroupList />} />
 				<Route exact path="/Select" element={<Select_Path />} />
 				<Route exact path="/Evaluate" element={<Evaluation />} />
 			</Routes>
