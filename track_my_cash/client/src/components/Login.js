@@ -13,10 +13,15 @@ const Login = ({ setLoginUser }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		// console.log(user);
-		axios.post("http://localhost:5000/auth/login", user).then((res) => {
-			alert(res.data);
-			setLoginUser(user);
-		});
+		axios
+			.post("http://localhost:5000/auth/login", user)
+			.then((res) => {
+				alert(res.data);
+				setLoginUser(user);
+			})
+			.catch((err) => {
+				alert("Incorrect Email or Password ");
+			});
 	};
 	const handleChange = (e) => {
 		const { name, value } = e.target;
