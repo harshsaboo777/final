@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
-import pool from "./db.cjs";
+import client from "./db.js";
+import pg from "pg";
 
 import signUpRoutes from "./routes/signUp.js";
 

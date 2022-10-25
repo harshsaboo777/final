@@ -1,11 +1,11 @@
-import pool from "../db.cjs";
+import client from "../db.js";
 
 export const createUser = async (req, res) => {
 	const { email, password, user_fname, user_lname, dob, phone, salary } =
 		req.body;
 	let exists;
 	try {
-		exists = await pool.query(
+		exists = await client.query(
 			"Select * from Member where Member.email=$1;",
 			[email]
 		);
@@ -19,7 +19,7 @@ export const createUser = async (req, res) => {
 	} else {
 		let newUser;
 		try {
-			newUser = await pool.query(
+			newUser = await client.query(
 				"insert into Member(email,password,user_fname,user_lname,date_of_birth,phone_number,salary) values($1,$2,$3,$4,$5,$6,$7);",
 				[email, password, user_fname, user_lname, dob, phone, salary]
 			);
@@ -34,8 +34,8 @@ export const logInUser = async (req, res) => {
 	const { email, password } = req.body;
 	let userExists;
 	try {
-		userExists = await pool.query(
-			"select Member.user_id from Member where Member.email=$1 and Member.password=$2;",
+		userExists = await client.query(
+			"select Member.mem_id from Member WHERE Email=$1 and Password=$2;",
 			[email, password]
 		);
 	} catch (err) {
