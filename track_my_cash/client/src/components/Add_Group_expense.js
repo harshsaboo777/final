@@ -18,7 +18,7 @@ function Add_Group_expense({ setOpenModal, state, setState }) {
 		memberName: "",
 		expenseType: "",
 		amount: 0,
-		time: getCurrentDate(),
+		date: getCurrentDate(),
 	});
 	const handleInput = (e) => {
 		const name = e.target.name;
@@ -27,15 +27,11 @@ function Add_Group_expense({ setOpenModal, state, setState }) {
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		setmemberExpenses({ ...memberExpenses, time: getCurrentDate() });
-		// members.push(memberExpenses);
-		// console.log(memberExpenses);
+		setmemberExpenses({ ...memberExpenses, date: getCurrentDate() });
 		let newState = [...state, memberExpenses];
-		// console.log(state);
 		setState(newState);
-		console.log(state);
+		setOpenModal(false);
 	};
-	// setmemberExpenses({ ...memberExpenses, time: getCurrentDate() });
 	return (
 		<div className="modalBackground">
 			<div className="modalContainer">
