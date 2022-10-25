@@ -5,7 +5,10 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import GoogleIcon from "@mui/icons-material/Google";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 const Login = ({ setLoginUser }) => {
+	const navigate = useNavigate();
 	const [user, setuser] = useState({
 		email: "",
 		password: "",
@@ -85,7 +88,9 @@ const Login = ({ setLoginUser }) => {
 						</div>
 						<p className={styles.loginregistertext}>
 							Don't have an account?{" "}
-							<a href="register.php">Register Here</a>
+							<button onClick={() => navigate("/SignUp")}>
+								Sign Up
+							</button>
 						</p>
 					</form>
 				</div>
