@@ -5,8 +5,10 @@ import "../componentsStyles/group_dashboard.css";
 import Group_Card from "./Group_Card";
 import groups from "./tempGroups";
 import axios from "axios";
+import Cookies from 'universal-cookie';
 // import members from "./Add_Group_expense";
 
+const cookies = new Cookies;
 const GroupList = ({ User }) => {
 	const [groupsArr, setgroupsArr] = useState(groups);
 	const onChangeState = (newState) => {
@@ -16,7 +18,7 @@ const GroupList = ({ User }) => {
 	useEffect(() => {
 		const fetchGroups = async (e) => {
 			await axios
-				.post("http://localhost:5000/groups", User)
+				.post("http://localhost:5000/groups", cookies.get('Member'))
 				.then((res) => {
 					console.log(res.data);
 					setgroupsArr(res.data.rows);

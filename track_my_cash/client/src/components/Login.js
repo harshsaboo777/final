@@ -6,6 +6,8 @@ import GoogleIcon from "@mui/icons-material/Google";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
 const Login = ({ setLoginUser }) => {
 	const navigate = useNavigate();
@@ -22,6 +24,7 @@ const Login = ({ setLoginUser }) => {
 			.then((res) => {
 				alert("You are now Logged in.");
 				user.mem_id = res.data;
+				cookies.set('Member',user,{path:'/'});
 				setLoginUser(user);
 			})
 			.catch((err) => {

@@ -4,8 +4,12 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import PersonIcon from "@mui/icons-material/Person";
 import "../componentsStyles/select_path.css";
 import { useNavigate } from "react-router-dom";
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
+console.log(cookies.get('Mem_Id'));
 
 function Select_Path({ User }) {
+	
 	const navigate = useNavigate();
 	return (
 		<div>
