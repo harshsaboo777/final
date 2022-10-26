@@ -1,7 +1,10 @@
 import "../componentsStyles/group_dashboard.css";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Group_Card = ({ content }) => {
+	const navigate = useNavigate();
+
 	return (
 		<div className="card detail-card">
 			<div className="card-body">
@@ -14,7 +17,7 @@ const Group_Card = ({ content }) => {
 				<div className="row mt-2 detail-foot ">
 					<div className="col-md-10"></div>
 					<div className="col-md-2 d-flex justify-content-end">
-						{content.created_on}
+						<button onClick={() => navigate("/Group")}>View Details</button>
 					</div>
 				</div>
 			</div>
