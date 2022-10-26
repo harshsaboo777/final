@@ -16,20 +16,22 @@ export const getGroups = async (req, res) => {
 
 export const showExpenses = async (req, res) => {
 	let group_id = req.params;
-	const expenses = [];
+	let expenses = [];
 	try {
 		expenses = await client.query(
-			"Select * from group_expense where group_id=$1",
-			[group_id]
+			"Select  fname,remarks,amount,date from group_expense join member on paid_by_mem_id = mem_id where group_id=$1",
+			[group_id.id]
 		);
 	} catch (error) {
 		console.log(error);
 	}
-	res.status(200).send(expenses);
+	res.status(200).send(expenses.rows);
 };
 
 export const addExpense = async (req, res) => {
 	let group_id = parseInt(req.params);
+	let members = req.members;
+	let expense_id = 0;
 	let paid_by = parseInt(req.body.paid_by);
 	let added_by = parseInt(req.body.added_by);
 	let amount = parseFloat(req.body.amount);
@@ -38,6 +40,9 @@ export const addExpense = async (req, res) => {
 		await client.query(
 			"INSERT INTO Group_Expense(Group_id, Paid_by_mem_id,Added_by_mem_id,Amount,Remarks,Date) VALUES($1,$2,$3,$4,$5,NOW())",
 			[group_id, paid_by, added_by, amount, remarks]
+		);
+		expense_id = await client.query(
+			"Select max(expense_id) from group_expense"
 		);
 	} catch (err) {
 		console.log(err);
@@ -86,6 +91,8 @@ export const getMembers = async (req, res) => {
 			"Select mem_id from belongs_to where group_id=$1",
 			[parseInt(group_id)]
 		);
+		console.log(members);
+		res.status(200).send(members);
 	} catch (err) {
 		console.log(err);
 	}
