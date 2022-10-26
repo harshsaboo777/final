@@ -1,17 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import FloatingSidebar from "./Floating_Sidebar";
 import "../componentsStyles/group_dashboard.css";
 import ExpenseCard from "./Expense_Card";
 import members from "./tempMembers";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import Cookies from "universal-cookie";
 // import members from "./Add_Group_expense";
 
+const cookies = new Cookies();
 const GroupDashBoard = () => {
 	const [membersArr, setmembersArr] = useState(members);
 	const onChangeState = (newState) => {
 		setmembersArr(newState);
 		console.log(membersArr);
 	};
+	let group_id = useParams();
+	useEffect(() => {
+		const fetchMembers = async (e) => {
+			await axios
+				.get("http://localhost:5000/groups/" + group_id.id)
+				.then((res) => {
+					setmembersArr(res.data);
+				});
+		};
+		fetchMembers();
+	}, []);
+
 	return (
 		<React.Fragment>
 			<div>

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const Group_Card = ({ content }) => {
 	const navigate = useNavigate();
-
+	let link = "/Group/" + content.group_id;
 	return (
 		<div className="card detail-card">
 			<div className="card-body">
@@ -17,7 +17,9 @@ const Group_Card = ({ content }) => {
 				<div className="row mt-2 detail-foot ">
 					<div className="col-md-10"></div>
 					<div className="col-md-2 d-flex justify-content-end">
-						<button onClick={() => navigate("/Group")}>View Details</button>
+						<button onClick={() => navigate(link)}>
+							View Details
+						</button>
 					</div>
 				</div>
 			</div>
