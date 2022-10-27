@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import "../componentsStyles/modal.css";
-
+import axios from "axios";
 let members = [];
 
 function Add_Group_expense({ setOpenModal, state, setState }) {
@@ -15,11 +16,13 @@ function Add_Group_expense({ setOpenModal, state, setState }) {
 		}${separator}${date}`;
 	};
 	const [memberExpenses, setmemberExpenses] = useState({
-		memberName: "",
-		expenseType: "",
+		involved: [],
+		paid_by: 0,
+		remarks: "",
 		amount: 0,
 		date: getCurrentDate(),
 	});
+	const [membersArr, setMembersArr] = useState(members);
 	const handleInput = (e) => {
 		const name = e.target.name;
 		const value = e.target.value;
@@ -29,9 +32,36 @@ function Add_Group_expense({ setOpenModal, state, setState }) {
 		e.preventDefault();
 		setmemberExpenses({ ...memberExpenses, date: getCurrentDate() });
 		let newState = [...state, memberExpenses];
+		let temp = membersArr.filter((member) => member.isChecked);
+		console.log(temp);
+		memberExpenses.involved = temp;
+		console.log(memberExpenses);
 		setState(newState);
 		setOpenModal(false);
 	};
+	const handleChange = (e) => {
+		const { name, checked } = e.target;
+		let temp = membersArr.map((member) =>
+			member.mem_id === name ? { ...member, isChecked: checked } : member
+		);
+		setMembersArr(temp);
+	};
+	const handleDropdown = (e) => {
+		const { value } = e.target;
+		memberExpenses.paid_by = value;
+	};
+	let group_id = useParams().id;
+	useEffect(() => {
+		console.log(group_id);
+		const fetchMembers = async (e) => {
+			await axios
+				.get("http://localhost:5000/groups/members/" + group_id)
+				.then((res) => {
+					members = res.data;
+				});
+		};
+		fetchMembers();
+	}, []);
 	return (
 		<div className="modalBackground">
 			<div className="modalContainer">
@@ -51,19 +81,44 @@ function Add_Group_expense({ setOpenModal, state, setState }) {
 					<p>
 						<div className="card">
 							<form action="">
+								<select
+									class="custom-select mr-sm-2"
+									id="inlineFormCustomSelect"
+									required
+									onChange={handleDropdown}
+								>
+									<option selected>Paid By </option>
+									{membersArr.map((member) => (
+										<option
+											value={member.mem_id}
+											name={member.fname}
+										>
+											{member.fname + " " + member.lname}
+										</option>
+									))}
+								</select>
+								{membersArr.map((member) => (
+									<div
+										className="form-check"
+										key={member.mem_id}
+									>
+										<input
+											type="checkbox"
+											className="form-check-input"
+											name={member.mem_id}
+											checked={member?.isChecked || false}
+											onChange={handleChange}
+										/>
+										<label className="form-check-label ms-2">
+											{member.fname + " " + member.lname}
+										</label>
+									</div>
+								))}
 								<input
 									type="text"
 									class="form-control"
-									name="memberName"
-									value={memberExpenses.memberName}
-									onChange={handleInput}
-									placeholder="Member Name"
-								/>
-								<input
-									type="text"
-									class="form-control"
-									name="expenseType"
-									value={memberExpenses.expenseType}
+									name="remarks"
+									value={memberExpenses.remarks}
 									onChange={handleInput}
 									placeholder="Expense Type"
 								/>

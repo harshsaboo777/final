@@ -84,15 +84,14 @@ export const addMember = async (req, res) => {
 };
 
 export const getMembers = async (req, res) => {
-	let group_id = parseInt(req.params);
+	let group_id = req.params.id;
 	let members;
 	try {
 		members = await client.query(
-			"Select mem_id from belongs_to where group_id=$1",
+			"Select belongs_to.mem_id,fname,lname from belongs_to join member on belongs_to.mem_id=member.mem_id where group_id=$1",
 			[parseInt(group_id)]
 		);
-		console.log(members);
-		res.status(200).send(members);
+		res.status(200).send(members.rows);
 	} catch (err) {
 		console.log(err);
 	}
