@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useEffect }  from "react";
 import Sidebar from "./Sidebar";
 import GroupsIcon from "@mui/icons-material/Groups";
 import PersonIcon from "@mui/icons-material/Person";
@@ -12,9 +12,12 @@ function Select_Path() {
 
 		const cookies = new Cookies();
 		console.log(cookies.get('Member'));
-		if(!cookies.get('Memeber')){
-			navigate('/')
+		useEffect(() => {
+		if(!cookies.get('Member')){
+			console.log("Mem1");
+			navigate('/');
 		}
+	});
 	// 	navigate('/');
 	// }
 	return (
