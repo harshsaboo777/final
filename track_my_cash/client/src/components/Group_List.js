@@ -5,6 +5,7 @@ import "../componentsStyles/group_dashboard.css";
 import Group_Card from "./Group_Card";
 import groups from "./tempGroups";
 import axios from "axios";
+<<<<<<< HEAD
 import Cookies from 'universal-cookie';
 import { Navigate, useNavigate } from "react-router-dom";
 
@@ -12,6 +13,12 @@ import { Navigate, useNavigate } from "react-router-dom";
 
 const cookies = new Cookies;
 
+=======
+import Cookies from "universal-cookie";
+// import members from "./Add_Group_expense";
+
+const cookies = new Cookies();
+>>>>>>> 351bb6ca6484f98853bc55a8dd7267797a9c30e6
 const GroupList = ({ User }) => {
 	const navigate = useNavigate();
 	const handleSubmit = async (e) => {
@@ -28,14 +35,12 @@ const GroupList = ({ User }) => {
 	const [groupsArr, setgroupsArr] = useState(groups);
 	const onChangeState = (newState) => {
 		setgroupsArr(newState);
-		console.log(groupsArr);
 	};
 	useEffect(() => {
 		const fetchGroups = async (e) => {
 			await axios
-				.post("http://localhost:5000/groups", cookies.get('Member'))
+				.post("http://localhost:5000/groups", cookies.get("Member"))
 				.then((res) => {
-					console.log(res.data);
 					setgroupsArr(res.data.rows);
 				});
 		};

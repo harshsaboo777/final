@@ -6,13 +6,13 @@ const Expense_Card = ({ content }) => {
 		<div className="card detail-card">
 			<div className="card-body">
 				<div className="row detail-head">
-					<div className="col-md-10"> {content.memberName}</div>
+					<div className="col-md-10"> {content.fname}</div>
 					<div className="col-md-2 d-flex justify-content-end">
 						{content.amount} INR
 					</div>
 				</div>
 				<div className="row mt-2 detail-foot ">
-					<div className="col-md-10"> {content.expenseType}</div>
+					<div className="col-md-10"> {content.remarks}</div>
 					<div className="col-md-2 d-flex justify-content-end">
 						{content.date}
 					</div>

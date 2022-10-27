@@ -34,7 +34,8 @@ function App() {
 					path="/"
 					element={<Login setLoginUser={setLoginUser} />}
 				/>
-				<Route exact path="/Group" element={<GroupDashBoard />} />
+				{/* <Route exact path="/Group" element={<GroupDashBoard />} /> */}
+				<Route path="/Group/:id" element={<GroupDashBoard />} />
 				<Route
 					exact
 					path="/GroupList"
