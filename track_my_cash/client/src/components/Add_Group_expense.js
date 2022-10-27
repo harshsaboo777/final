@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "../componentsStyles/modal.css";
+
 import axios from "axios";
 let members = [];
 
+
 function Add_Group_expense({ setOpenModal, state, setState }) {
+
 	useEffect(() => {
 		console.log(group_id);
 		const fetchMembers = async (e) => {
@@ -51,8 +54,14 @@ function Add_Group_expense({ setOpenModal, state, setState }) {
 			.then((res) => {
 				members = res.data;
 			});
-		setState(newState);
+			let link = "/Group/" +group_id;
+
+		
+		// setState(newState);
+
 		setOpenModal(false);
+		window.location.reload();
+
 	};
 	const handleChange = (e) => {
 		const { name, checked } = e.target;
