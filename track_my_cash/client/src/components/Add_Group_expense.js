@@ -5,6 +5,17 @@ import axios from "axios";
 let members = [];
 
 function Add_Group_expense({ setOpenModal, state, setState }) {
+	useEffect(() => {
+		console.log(group_id);
+		const fetchMembers = async (e) => {
+			await axios
+				.get("http://localhost:5000/groups/members/" + group_id)
+				.then((res) => {
+					members = res.data;
+				});
+		};
+		fetchMembers();
+	}, []);
 	const getCurrentDate = (separator = "/") => {
 		let newDate = new Date();
 		let date = newDate.getDate();
@@ -17,6 +28,7 @@ function Add_Group_expense({ setOpenModal, state, setState }) {
 	};
 	const [memberExpenses, setmemberExpenses] = useState({
 		involved: [],
+		fname: "nobody",
 		paid_by: 0,
 		remarks: "",
 		amount: 0,
@@ -33,9 +45,12 @@ function Add_Group_expense({ setOpenModal, state, setState }) {
 		setmemberExpenses({ ...memberExpenses, date: getCurrentDate() });
 		let newState = [...state, memberExpenses];
 		let temp = membersArr.filter((member) => member.isChecked);
-		console.log(temp);
 		memberExpenses.involved = temp;
-		console.log(memberExpenses);
+		axios
+			.post("http://localhost:5000/groups/" + group_id, memberExpenses)
+			.then((res) => {
+				members = res.data;
+			});
 		setState(newState);
 		setOpenModal(false);
 	};
@@ -48,20 +63,17 @@ function Add_Group_expense({ setOpenModal, state, setState }) {
 	};
 	const handleDropdown = (e) => {
 		const { value } = e.target;
+		let name = "";
 		memberExpenses.paid_by = value;
+		membersArr.forEach((member) => {
+			if (member.mem_id == value) {
+				name = member.fname;
+			}
+		});
+		memberExpenses.fname = name;
 	};
 	let group_id = useParams().id;
-	useEffect(() => {
-		console.log(group_id);
-		const fetchMembers = async (e) => {
-			await axios
-				.get("http://localhost:5000/groups/members/" + group_id)
-				.then((res) => {
-					members = res.data;
-				});
-		};
-		fetchMembers();
-	}, []);
+
 	return (
 		<div className="modalBackground">
 			<div className="modalContainer">
