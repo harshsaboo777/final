@@ -14,18 +14,18 @@ const GroupDashBoard = () => {
 	const [membersArr, setmembersArr] = useState(members);
 	const onChangeState = (newState) => {
 		setmembersArr(newState);
-		console.log(membersArr);
+		// console.log(membersArr);
 	};
 	let group_id = useParams();
 	useEffect(() => {
-		const fetchMembers = async (e) => {
+		const fetchExpenses = async (e) => {
 			await axios
 				.get("http://localhost:5000/groups/" + group_id.id)
 				.then((res) => {
 					setmembersArr(res.data);
 				});
 		};
-		fetchMembers();
+		fetchExpenses();
 	}, []);
 
 	return (
