@@ -3,14 +3,20 @@ import Sidebar from "./Sidebar";
 import GroupsIcon from "@mui/icons-material/Groups";
 import PersonIcon from "@mui/icons-material/Person";
 import "../componentsStyles/select_path.css";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import Cookies from 'universal-cookie';
-const cookies = new Cookies();
-console.log(cookies.get('Mem_Id'));
 
-function Select_Path({ User }) {
-	
-	const navigate = useNavigate();
+function Select_Path() {
+	// if(cookies.get('Member')=='undefined'||cookies.get('Member')=='null'){
+		const navigate = useNavigate();
+
+		const cookies = new Cookies();
+		console.log(cookies.get('Member'));
+		if(!cookies.get('Memeber')){
+			navigate('/')
+		}
+	// 	navigate('/');
+	// }
 	return (
 		<div>
 			<React.Fragment>

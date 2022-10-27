@@ -11,6 +11,8 @@ import { Routes, Route } from "react-router-dom";
 import Evaluation from "./components/Evaluation";
 import React, { useState } from "react";
 import GroupList from "./components/Group_List";
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 //import Select_Path from "./components/Select_Path";
 
 function App() {
@@ -30,13 +32,7 @@ function App() {
 				<Route
 					exact
 					path="/"
-					element={
-						LoginUser && LoginUser.email ? (
-							<Select_Path User={LoginUser} />
-						) : (
-							<Login setLoginUser={setLoginUser} />
-						)
-					}
+					element={<Login setLoginUser={setLoginUser} />}
 				/>
 				<Route exact path="/Group" element={<GroupDashBoard />} />
 				<Route

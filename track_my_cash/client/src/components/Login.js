@@ -9,8 +9,15 @@ import { useNavigate } from "react-router-dom";
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
+
+
 const Login = ({ setLoginUser }) => {
+
 	const navigate = useNavigate();
+
+if(cookies.get('Memeber')){
+	navigate('/Select_Path')
+}
 	const [user, setuser] = useState({
 		mem_id: 0,
 		email: "",
@@ -25,7 +32,7 @@ const Login = ({ setLoginUser }) => {
 				alert("You are now Logged in.");
 				user.mem_id = res.data;
 				cookies.set('Member',user,{path:'/'});
-				setLoginUser(user);
+				navigate('/Select');
 			})
 			.catch((err) => {
 				alert("Incorrect Email or Password ");
