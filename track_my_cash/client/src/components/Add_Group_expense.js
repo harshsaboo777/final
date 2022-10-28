@@ -6,10 +6,9 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 let members = [];
 
-
 function Add_Group_expense({ setOpenModal, state, setState }) {
 	const cookies = new Cookies();
-	const Member_Id = cookies.get('Member').mem_id;
+	const Member_Id = cookies.get("Member").mem_id;
 	useEffect(() => {
 		console.log(group_id);
 		const fetchMembers = async (e) => {
@@ -57,14 +56,12 @@ function Add_Group_expense({ setOpenModal, state, setState }) {
 			.then((res) => {
 				members = res.data;
 			});
-			let link = "/Group/" +group_id;
+		let link = "/Group/" + group_id;
 
-		
 		// setState(newState);
 
 		setOpenModal(false);
 		window.location.reload();
-
 	};
 	const handleChange = (e) => {
 		const { name, checked } = e.target;

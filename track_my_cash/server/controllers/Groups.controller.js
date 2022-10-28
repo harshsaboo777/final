@@ -36,15 +36,24 @@ export const addExpense = async (req, res) => {
 	let added_by = parseInt(req.body.added_by);
 	let amount = parseFloat(req.body.amount);
 	let remarks = req.body.remarks;
+	let share_amount = amount / involved.length;
 	try {
 		await client.query(
 			"INSERT INTO Group_Expense(Group_id, Paid_by_mem_id,Added_by_mem_id,Amount,Remarks,Date) VALUES($1,$2,$3,$4,$5,NOW())",
 			[group_id, paid_by, added_by, amount, remarks]
 		);
 		expense_id = await client.query(
-			"Select max(expense_id) from group_expense"
+			"Select max(expense_id) from group_expense where group_id=$1",
+			[group_id]
 		);
-
+		expense_id = expense_id.rows[0].max;
+		involved.forEach(async (member) => {
+			console.log(member);
+			await client.query(
+				"Insert into shares(Expense_id,Group_id,Mem_id,Share_amount,settled) values ($1,$2,$3,$4,false)",
+				[parseInt(expense_id), group_id, member.mem_id, share_amount]
+			);
+		});
 	} catch (err) {
 		console.log(err);
 	}
