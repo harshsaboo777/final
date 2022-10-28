@@ -130,8 +130,8 @@ function Add_Group_expense({ setOpenModal, state, setState }) {
 											type="checkbox"
 											className="form-check-input"
 											name={member.mem_id}
-											checked={member?.isChecked || false}
 											onChange={handleChange}
+											checked											
 										/>
 										<label className="form-check-label ms-2">
 											{member.fname + " " + member.lname}
