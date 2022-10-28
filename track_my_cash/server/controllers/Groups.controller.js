@@ -33,16 +33,18 @@ export const addExpense = async (req, res) => {
 	let involved = req.body.involved;
 	let expense_id = 0;
 	let paid_by = parseInt(req.body.paid_by);
+	let added_by = parseInt(req.body.added_by);
 	let amount = parseFloat(req.body.amount);
 	let remarks = req.body.remarks;
 	try {
 		await client.query(
 			"INSERT INTO Group_Expense(Group_id, Paid_by_mem_id,Added_by_mem_id,Amount,Remarks,Date) VALUES($1,$2,$3,$4,$5,NOW())",
-			[group_id, paid_by, paid_by, amount, remarks]
+			[group_id, paid_by, added_by, amount, remarks]
 		);
 		expense_id = await client.query(
 			"Select max(expense_id) from group_expense"
 		);
+
 	} catch (err) {
 		console.log(err);
 	}

@@ -3,11 +3,13 @@ import { useParams } from "react-router-dom";
 import "../componentsStyles/modal.css";
 
 import axios from "axios";
+import Cookies from "universal-cookie";
 let members = [];
 
 
 function Add_Group_expense({ setOpenModal, state, setState }) {
-
+	const cookies = new Cookies();
+	const Member_Id = cookies.get('Member').mem_id;
 	useEffect(() => {
 		console.log(group_id);
 		const fetchMembers = async (e) => {
@@ -36,6 +38,7 @@ function Add_Group_expense({ setOpenModal, state, setState }) {
 		remarks: "",
 		amount: 0,
 		date: getCurrentDate(),
+		added_by: Member_Id,
 	});
 	const [membersArr, setMembersArr] = useState(members);
 	const handleInput = (e) => {
@@ -103,7 +106,7 @@ function Add_Group_expense({ setOpenModal, state, setState }) {
 						<div className="card">
 							<form action="">
 								<select
-									class="custom-select mr-sm-2"
+									class="custom-select mr-sm-2 form-select form-select-lg mb-3"
 									id="inlineFormCustomSelect"
 									required
 									onChange={handleDropdown}
