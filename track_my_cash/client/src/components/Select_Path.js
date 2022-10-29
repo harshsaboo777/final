@@ -5,6 +5,8 @@ import PersonIcon from "@mui/icons-material/Person";
 import "../componentsStyles/select_path.css";
 import { Navigate, useNavigate } from "react-router-dom";
 import Cookies from 'universal-cookie';
+import Button from '@mui/material/Button'; 
+
 
 function Select_Path() {
 	// if(cookies.get('Member')=='undefined'||cookies.get('Member')=='null'){
@@ -30,8 +32,8 @@ function Select_Path() {
 							<div className="display-4 header-text">
 								My Expenses
 							</div>
-							<div className="select_button mt-5">
-								<button onClick={() => navigate("/Group")}>
+							<div className="mt-5">
+								<button className="select_button" onClick={() => navigate("/Group")}>
 									SELECT
 								</button>
 							</div>
@@ -39,8 +41,8 @@ function Select_Path() {
 						<div className="col-md-5 shadow p-3 mb-5 bg-white rounded text-center">
 							<PersonIcon style={{ fontSize: 350 }} />
 							<div className="display-4 header-text">Groups</div>
-							<div className="select_button mt-5">
-								<button onClick={() => navigate("/GroupList")}>
+							<div className=" mt-5">
+								<button className="select_button" onClick={() => navigate("/GroupList")}>
 									SELECT
 								</button>
 							</div>

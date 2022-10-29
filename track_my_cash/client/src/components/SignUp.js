@@ -4,6 +4,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import GoogleIcon from "@mui/icons-material/Google";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import Button from '@mui/material/Button'; 
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -138,9 +139,9 @@ const SignUp = () => {
 						</div>
 						<p className={styles.loginregistertext}>
 							Already have an account?{" "}
-							<button onClick={() => navigate("/")}>
+							<Button onClick={() => navigate("/")}>
 								Sign In
-							</button>
+							</Button>
 						</p>
 					</form>
 				</div>

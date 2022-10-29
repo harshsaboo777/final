@@ -5,7 +5,6 @@ import "../componentsStyles/group_dashboard.css";
 import Group_Card from "./Group_Card";
 import groups from "./tempGroups";
 import axios from "axios";
-
 import Cookies from 'universal-cookie';
 import { Navigate, useNavigate } from "react-router-dom";
 
