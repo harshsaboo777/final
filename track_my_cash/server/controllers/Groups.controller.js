@@ -61,7 +61,8 @@ export const addExpense = async (req, res) => {
 };
 
 export const addGroup = async (req, res) => {
-	let mem_id = req.body.mem_id;
+	let mem_id = req.body.owner_id;
+	let group_name = req.body.name;
 	let group_id;
 	try {
 		await client.query(
@@ -69,9 +70,10 @@ export const addGroup = async (req, res) => {
 			[parseInt(mem_id), group_name]
 		);
 		group_id = await client.query(
-			"Select group_id from groups where owner_id=$1 and name=$2",
+			"Select max(group_id) from groups where owner_id=$1 and name=$2",
 			[parseInt(mem_id), group_name]
 		);
+		group_id = group_id.rows[0].max;
 		await client.query(
 			"INSERT INTO belongs_to(mem_id,group_id,amount_due) VALUES ($1,$2,0)",
 			[parseInt(mem_id), parseInt(group_id)]
