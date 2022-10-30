@@ -1,19 +1,18 @@
 import React from "react";
 import "../componentsStyles/floating_sidebar.css";
 import SettingsIcon from "@mui/icons-material/Settings";
-import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
-import BalanceIcon from "@mui/icons-material/Balance";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
-import AddGroupExpense from "./Add_Group_expense";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import AddNewGroup from "./Add_new_Group";
+import AddNewMember from "./Add_member_to_group";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Floating_Sidebar_grouplist = ({ logo, state, setState }) => {
 	const [modal1Open, setModal1Open] = useState(false);
-	const navigate = useNavigate();
+	const [modal2Open, setModal2Open] = useState(false);
 
 	return (
 		<>
@@ -25,7 +24,13 @@ const Floating_Sidebar_grouplist = ({ logo, state, setState }) => {
 						setState={setState}
 					/>
 				)}
-
+				{modal2Open && (
+					<AddNewMember
+						setOpenModal={setModal2Open}
+						state={state}
+						setState={setState}
+					/>
+				)}
 				<div id="floating-panel2">
 					<div className="floating-icon">
 						<InfoOutlinedIcon
@@ -48,31 +53,27 @@ const Floating_Sidebar_grouplist = ({ logo, state, setState }) => {
 									sx={{ color: "#ffff" }}
 								/>
 							</button>
-
-							{/* 
-					<Popup trigger={<button><AddCircleOutlineOutlinedIcon fontSize="large" sx={{color:'#ffff'}}/></button>}>
-						<Add_Group_expense />
-					</Popup> */}
+						</div>
+					)}
+					{logo.flag && (
+						<div className="floating-icon">
+							<button
+								className="openModalBtn"
+								onClick={() => {
+									modal2Open
+										? setModal2Open(false)
+										: setModal2Open(true);
+								}}
+							>
+								<PersonAddIcon
+									fontSize="large"
+									sx={{ color: "#ffff" }}
+								/>
+							</button>
 						</div>
 					)}
 
-					<div className="floating-icon">
-						<button
-							className="openModalBtn"
-							onClick={() => navigate("/Evaluate")}
-						>
-							<BalanceIcon
-								fontSize="large"
-								sx={{ color: "#ffff" }}
-							/>
-						</button>
-					</div>
-
 					<SettingsIcon fontSize="large" sx={{ color: "#ffff" }} />
-
-					{/* <AddCircleIcon fontSize="large"/> */}
-
-					{/* <h1>P4</h1> */}
 				</div>
 			</div>
 		</>

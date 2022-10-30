@@ -84,13 +84,31 @@ export const addGroup = async (req, res) => {
 };
 
 export const addMember = async (req, res) => {
-	let group_id = req.group_id;
-	let mem_id = req.mem_id;
+	let group_id = req.body.group_id;
+	let mem_id = req.body.mem_id;
+	let group_exists;
+	let added;
 	try {
-		await client.query(
-			"INSERT INTO belongs_to(mem_id,group_id,amount_due) VALUES ($1,$2,0)",
-			[parseInt(mem_id), parseInt(group_id)]
+		group_exists = await client.query(
+			"select * from groups where group_id=$1",
+			[parseInt(group_id)]
 		);
+		if (group_exists.rows[0] == undefined) {
+			res.send("-1");
+		}
+		added = await client.query(
+			"select * from belongs_to where group_id=$1 and mem_id=$2",
+			[parseInt(group_id), parseInt(mem_id)]
+		);
+		if (added.rows[0] != undefined) {
+			res.send("-2");
+		} else {
+			await client.query(
+				"INSERT INTO belongs_to(mem_id,group_id,amount_due) VALUES ($1,$2,0)",
+				[parseInt(mem_id), parseInt(group_id)]
+			);
+			res.send("1");
+		}
 	} catch (error) {
 		console.log(error);
 	}
