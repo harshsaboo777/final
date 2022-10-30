@@ -1,5 +1,7 @@
 import "../componentsStyles/group_dashboard.css";
 import React from "react";
+import Button from '@mui/material/Button'; 
+
 import { useNavigate } from "react-router-dom";
 
 const Group_Card = ({ content }) => {
@@ -17,9 +19,9 @@ const Group_Card = ({ content }) => {
 				<div className="row mt-2 detail-foot ">
 					<div className="col-md-10"></div>
 					<div className="col-md-2 d-flex justify-content-end">
-						<button onClick={() => navigate(link)}>
+						<Button onClick={() => navigate(link)}>
 							View Details
-						</button>
+						</Button>
 					</div>
 				</div>
 			</div>

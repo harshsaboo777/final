@@ -4,6 +4,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import GoogleIcon from "@mui/icons-material/Google";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import Button from '@mui/material/Button'; 
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Cookies from 'universal-cookie';
@@ -100,9 +101,11 @@ if(cookies.get('Memeber')){
 						</div>
 						<p className={styles.loginregistertext}>
 							Don't have an account?{" "}
-							<button onClick={() => navigate("/SignUp")}>
+							{/* <div className = > */}
+							<Button variant="text" onClick={() => navigate("/SignUp")}>
 								Sign Up
-							</button>
+							</Button>
+							{/* </div> */}
 						</p>
 					</form>
 				</div>
