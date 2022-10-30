@@ -1,30 +1,29 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
-import FloatingSidebar from "./Floating_Sidebar";
+import FloatingSidebar from "./Floating_Sidebar_grouplist";
 import "../componentsStyles/group_dashboard.css";
 import Group_Card from "./Group_Card";
 import groups from "./tempGroups";
 import axios from "axios";
+
 import Cookies from 'universal-cookie';
 import { Navigate, useNavigate } from "react-router-dom";
 
 // import members from "./Add_Group_expense";
 
-const cookies = new Cookies;
-
+const cookies = new Cookies();
 
 const GroupList = ({ User }) => {
 	const navigate = useNavigate();
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		// console.log(user);
-		cookies.remove('Member');
-		console.log(cookies.get('Member'));
-		navigate('/');
-		
+		cookies.remove("Member");
+		console.log(cookies.get("Member"));
+		navigate("/");
 	};
-	if(!cookies.get('Member')){
-		navigate('/');
+	if (!cookies.get("Member")) {
+		navigate("/");
 	}
 	const [groupsArr, setgroupsArr] = useState(groups);
 	const onChangeState = (newState) => {
