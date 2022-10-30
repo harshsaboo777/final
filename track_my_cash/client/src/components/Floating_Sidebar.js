@@ -8,7 +8,7 @@ import AddGroupExpense from "./Add_Group_expense";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Floating_Sidebar = ({ logo, state, setState }) => {
+const Floating_Sidebar = ({ logo, state, setState,group_id }) => {
 	const [modalOpen, setModalOpen] = useState(false);
 	const navigate = useNavigate();
 
@@ -55,7 +55,7 @@ const Floating_Sidebar = ({ logo, state, setState }) => {
 
 					<div className="floating-icon">
 						
-					<button className="openModalBtn" onClick={() => navigate("/Evaluate")}><BalanceIcon fontSize="large" sx={{ color: "#ffff" }} /></button>
+					<button className="openModalBtn" onClick={() => navigate("/Evaluate/" + group_id)}><BalanceIcon fontSize="large" sx={{ color: "#ffff" }} /></button>
 						
 					</div>
 

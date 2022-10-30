@@ -36,6 +36,7 @@ const GroupDashBoard = () => {
 					logo={{ flag: true }}
 					state={membersArr}
 					setState={onChangeState}
+					group_id= {group_id.id}
 				/>
 
 				<div className="container mt-4">

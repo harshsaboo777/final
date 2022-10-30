@@ -1,7 +1,133 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import PriorityQueue from "priorityqueuejs";
 import Sidebar from "./Sidebar";
+import axios from "axios";
+import Share_Card from "./Share_Card";
+import Cookies from "universal-cookie";
+import { useParams } from "react-router-dom";
+import Split_Card from "./Split_Card";
+const cookies = new Cookies();
+
+let Expense_List=[];
+let amount=0;
+let SplitList=[];
 
 function Evaluation() {
+	const group_id = useParams().id;
+	const [Amount, setAmount] = useState(amount);
+	const [Share, setShare] = useState(Expense_List);
+	const [Split, setSplit] = useState(SplitList);
+	let tempu = [];
+
+	const onChangeState = (newState) => {
+		setAmount(newState);
+		setShare(newState)
+		setSplit(newState)
+	};
+	const calculate = async (e)=>{
+		//console.log(Share);
+    var Giver = new PriorityQueue(function (a, b) {
+      return a.cash - b.cash;
+    });
+    var Taker = new PriorityQueue(function (a, b) {
+      return a.cash - b.cash;
+    });
+	let n = Share.length;
+	for (let i = 0; i < n; i++) {
+		let h = Share[i].amount_due;
+		console.log(Share);
+
+		if (h > 0) {
+		  Taker.enq({
+			fName: Share[i].fname,
+			lName: Share[i].lname,
+			cash: h,
+		  });
+		} else if (h < 0) {
+		  Giver.enq({
+			fName: Share[i].fname,
+			lName: Share[i].lname,
+			cash: -h,
+		  });
+		}
+	  }
+
+	  while (Taker.size() !== 0 && Giver.size() !== 0) {
+		let diff = Taker.peek().cash - Giver.peek().cash;
+		console.log(Taker.size(), Giver.size());
+		let fName1 = Taker.peek().fName;
+		let lName1 = Taker.peek().lName;
+		let fName2 = Giver.peek().fName;
+		let lName2 = Giver.peek().lName;
+		let val1 = Taker.peek().cash;
+		let val2 = Giver.peek().cash;
+		Giver.deq();
+		Taker.deq();
+  
+		if (diff < 0) {
+		  Giver.enq({
+			fName: fName2,
+			lName: lName2,
+			cash: -diff,
+		  });
+		  //let tem = "Person " + id2 + "--> Person " + id1 + " : " + val1;
+		  let temp =  {Name2:fName2+ " " + lName2,Name1:fName1+" "+lName1,val:val1};
+		  tempu.push(temp);
+		} else if (diff > 0) {
+		  Taker.enq({
+			fName: fName1,
+			lName: lName1,
+			cash: diff,
+		  });
+		 // let tem = "Person " + id2 + "--> Person " + id1 + " : " + val2;
+		 let temp =  {Name2:fName2+ " " + lName2,Name1:fName1+" "+lName1,val:val2};
+
+		  tempu.push(temp);
+		} else {
+		  
+		 // let temp = "Person " + id2 + "--> Person " + id1 + " : " + val1;
+		 let temp =  {Name2:fName2+ " " + lName2,Name1:fName1+" "+lName1,val:val1};
+
+		  tempu.push(temp);
+		}
+		if (Taker.size() === 0) {
+		  console.log("hi");
+		  break;
+		}
+	  }
+
+	 console.log(tempu);
+	}
+	calculate();
+	
+	//calculate();
+
+	useEffect(() => {
+		console.log(group_id);
+		const fetchAmount = async (e) => {
+			await axios
+				.get("http://localhost:5000/groups/amount/" + group_id)
+				.then((res) => {
+					console.log(res.data);
+					setAmount(res.data.rows[0].sum);
+					console.log(Amount);
+				});
+			await axios
+				.get("http://localhost:5000/groups/share/" + group_id)
+				.then((res) => {
+					//console.log(res.data);
+					setShare(res.data);
+					console.log(Share);
+
+				});
+
+					
+
+		};
+		fetchAmount();
+
+		
+	}, []);
 	return (
 		<React.Fragment>
 			<div>
@@ -21,7 +147,7 @@ function Evaluation() {
 													Total Expense
 												</div>
 												<div className="col-md-2 d-flex justify-content-end">
-													225.00 INR
+													{Amount}
 												</div>
 											</div>
 										</div>
@@ -34,207 +160,17 @@ function Evaluation() {
 					<div className="card mt-4">
 						<div className="card-header">Summary</div>
 						<div className="card-body">
-							<div className="row">
-								<div className="col-md-12">
-									<div className="card detail-card">
-										<div className="card-body">
-											<div className="row detail-head">
-												<div className="col-md-10">
-													{" "}
-													Memeber 1
-												</div>
-												<div className="col-md-2 d-flex justify-content-end text-success">
-													+ 225.00 INR
-												</div>
-											</div>
-											<div className="row mt-2 detail-foot ">
-												<div className="col-md-10">
-													{" "}
-													Charged 127, Paid 250
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								{/* <div className="col-md-1 border"></div> */}
-							</div>
-							<div className="row">
-								<div className="col-md-12">
-									<div className="card detail-card">
-										<div className="card-body">
-											<div className="row detail-head">
-												<div className="col-md-10">
-													{" "}
-													Memeber 1
-												</div>
-												<div className="col-md-2 d-flex justify-content-end text-success">
-													+ 225.00 INR
-												</div>
-											</div>
-											<div className="row mt-2 detail-foot ">
-												<div className="col-md-10">
-													{" "}
-													Charged 127, Paid 250
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								{/* <div className="col-md-1 border"></div> */}
-							</div>
-							<div className="row">
-								<div className="col-md-12">
-									<div className="card detail-card">
-										<div className="card-body">
-											<div className="row detail-head">
-												<div className="col-md-10">
-													{" "}
-													Memeber 1
-												</div>
-												<div className="col-md-2 d-flex justify-content-end text-danger">
-													- 225.00 INR
-												</div>
-											</div>
-											<div className="row mt-2 detail-foot ">
-												<div className="col-md-10">
-													{" "}
-													Charged 127, Paid 250
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								{/* <div className="col-md-1 border"></div> */}
-							</div>
-							<div className="row">
-								<div className="col-md-12">
-									<div className="card detail-card">
-										<div className="card-body">
-											<div className="row detail-head">
-												<div className="col-md-10">
-													{" "}
-													Memeber 1
-												</div>
-												<div className="col-md-2 d-flex justify-content-end text-success">
-													225.00 INR
-												</div>
-											</div>
-											<div className="row mt-2 detail-foot ">
-												<div className="col-md-10">
-													{" "}
-													Charged 127, Paid 250
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								{/* <div className="col-md-1 border"></div> */}
-							</div>
+						{Share.map((memShare) => {
+										return <Share_Card content={memShare} />;
+									})}
 						</div>
 					</div>
 					<div className="card mt-4">
 						<div className="card-header">How to settle?</div>
 						<div className="card-body">
-							<div className="row">
-								<div className="col-md-12">
-									<div className="card detail-card">
-										<div className="card-body">
-											<div className="row detail-head">
-												<div className="col-md-10">
-													{" "}
-													Memeber 1
-												</div>
-												<div className="col-md-2 d-flex justify-content-end">
-													225.00 INR
-												</div>
-											</div>
-											<div className="row mt-2 detail-foot ">
-												<div className="col-md-10">
-													{" "}
-													Should pay to Member 2
-												</div>
-												{/* <div className="col-md-2 d-flex justify-content-end">31 Jan,2021</div> */}
-											</div>
-										</div>
-									</div>
-								</div>
-								{/* <div className="col-md-1 border"></div> */}
-							</div>
-							<div className="row">
-								<div className="col-md-12">
-									<div className="card detail-card">
-										<div className="card-body">
-											<div className="row detail-head">
-												<div className="col-md-10">
-													{" "}
-													Memeber 1
-												</div>
-												<div className="col-md-2 d-flex justify-content-end">
-													225.00 INR
-												</div>
-											</div>
-											<div className="row mt-2 detail-foot ">
-												<div className="col-md-10">
-													{" "}
-													Should pay to Member 2
-												</div>
-												{/* <div className="col-md-2 d-flex justify-content-end">31 Jan,2021</div> */}
-											</div>
-										</div>
-									</div>
-								</div>
-								{/* <div className="col-md-1 border"></div> */}
-							</div>
-							<div className="row">
-								<div className="col-md-12">
-									<div className="card detail-card">
-										<div className="card-body">
-											<div className="row detail-head">
-												<div className="col-md-10">
-													{" "}
-													Memeber 1
-												</div>
-												<div className="col-md-2 d-flex justify-content-end">
-													225.00 INR
-												</div>
-											</div>
-											<div className="row mt-2 detail-foot ">
-												<div className="col-md-10">
-													{" "}
-													Should pay to Member 2
-												</div>
-												{/* <div className="col-md-2 d-flex justify-content-end">31 Jan,2021</div> */}
-											</div>
-										</div>
-									</div>
-								</div>
-								{/* <div className="col-md-1 border"></div> */}
-							</div>
-							<div className="row">
-								<div className="col-md-12">
-									<div className="card detail-card">
-										<div className="card-body">
-											<div className="row detail-head">
-												<div className="col-md-10">
-													{" "}
-													Memeber 1
-												</div>
-												<div className="col-md-2 d-flex justify-content-end">
-													225.00 INR
-												</div>
-											</div>
-											<div className="row mt-2 detail-foot ">
-												<div className="col-md-10">
-													{" "}
-													Should pay to Member 2
-												</div>
-												{/* <div className="col-md-2 d-flex justify-content-end">31 Jan,2021</div> */}
-											</div>
-										</div>
-									</div>
-								</div>
-								{/* <div className="col-md-1 border"></div> */}
-							</div>
+						{tempu.map((memSplit) => {
+										return <Split_Card content={memSplit} />;
+									})}
 						</div>
 					</div>
 				</div>

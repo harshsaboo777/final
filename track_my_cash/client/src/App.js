@@ -42,7 +42,7 @@ function App() {
 					element={<GroupList User={LoginUser} />}
 				/>
 				<Route exact path="/Select" element={<Select_Path />} />
-				<Route exact path="/Evaluate" element={<Evaluation />} />
+				<Route exact path="/Evaluate/:id" element={<Evaluation />} />
 			</Routes>
 		</>
 	);

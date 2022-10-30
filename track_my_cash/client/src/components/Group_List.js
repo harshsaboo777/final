@@ -30,6 +30,7 @@ const GroupList = ({ User }) => {
 	const [groupsArr, setgroupsArr] = useState(groups);
 	const onChangeState = (newState) => {
 		setgroupsArr(newState);
+
 	};
 	useEffect(() => {
 		const fetchGroups = async (e) => {
@@ -37,6 +38,8 @@ const GroupList = ({ User }) => {
 				.post("http://localhost:5000/groups", cookies.get("Member"))
 				.then((res) => {
 					setgroupsArr(res.data.rows);
+					console.log(groupsArr);
+
 				});
 		};
 		fetchGroups();
@@ -49,8 +52,7 @@ const GroupList = ({ User }) => {
 				<FloatingSidebar
 					logo={{ flag: true }}
 					state={groupsArr}
-					setState={onChangeState}
-				/>
+					setState={onChangeState}/>
 
 				<div className="container mt-4">
 					<div className="card">
