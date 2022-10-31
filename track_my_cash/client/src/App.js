@@ -11,7 +11,8 @@ import { Routes, Route } from "react-router-dom";
 import Evaluation from "./components/Evaluation";
 import React, { useState } from "react";
 import GroupList from "./components/Group_List";
-import Cookies from 'universal-cookie';
+import Cookies from "universal-cookie";
+import IndividualDashBoard from "./components/Individual_Dashboard";
 const cookies = new Cookies();
 //import Select_Path from "./components/Select_Path";
 
@@ -29,6 +30,12 @@ function App() {
 				<Route exact path="/SignUp" element={<SignUp />} />
 				<Route exact path="/Select_Path" element={<Select_Path />} />
 				<Route exact path="/home" element={<Home />} />
+				<Route
+					exact
+					path="/individual"
+					element={<IndividualDashBoard />}
+				/>
+
 				<Route
 					exact
 					path="/"
