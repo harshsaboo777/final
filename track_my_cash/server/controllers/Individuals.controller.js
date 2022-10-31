@@ -19,8 +19,8 @@ export const showExpenses = async (req, res) => {
 	let expenses = [];
 	try {
 		expenses = await client.query(
-			"Select   from group_expense join member on paid_by_mem_id = mem_id where group_id=$1 order by date desc",
-			[group_id.id]
+			"Select * from individual_expense where mem_id=$1 order by date desc",
+			[mem_id]
 		);
 	} catch (error) {
 		console.log(error);
