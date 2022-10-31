@@ -92,6 +92,132 @@ const IndividualDashBoard = () => {
 								</div>
 							</div>
 						</div>
+						<div className="card-body">
+							<div className="card detail-card">
+								<div className="card-body">
+									<div className="row detail-head">
+										<div className="col-md-10">
+											{" "}
+											Grocery
+										</div>
+										<div className="col-md-2 d-flex justify-content-end">
+											500 INR
+										</div>
+									</div>
+									<div className="row mt-2 detail-foot ">
+										<div className="col-md-10"> Food</div>
+										<div className="col-md-2 d-flex justify-content-end">
+											10/12/22
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="card-body">
+							<div className="card detail-card">
+								<div className="card-body">
+									<div className="row detail-head">
+										<div className="col-md-10">
+											{" "}
+											Grocery
+										</div>
+										<div className="col-md-2 d-flex justify-content-end">
+											500 INR
+										</div>
+									</div>
+									<div className="row mt-2 detail-foot ">
+										<div className="col-md-10"> Food</div>
+										<div className="col-md-2 d-flex justify-content-end">
+											10/12/22
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="card-body">
+							<div className="card detail-card">
+								<div className="card-body">
+									<div className="row detail-head">
+										<div className="col-md-10">
+											{" "}
+											Grocery
+										</div>
+										<div className="col-md-2 d-flex justify-content-end">
+											500 INR
+										</div>
+									</div>
+									<div className="row mt-2 detail-foot ">
+										<div className="col-md-10"> Food</div>
+										<div className="col-md-2 d-flex justify-content-end">
+											10/12/22
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="card-body">
+							<div className="card detail-card">
+								<div className="card-body">
+									<div className="row detail-head">
+										<div className="col-md-10">
+											{" "}
+											Grocery
+										</div>
+										<div className="col-md-2 d-flex justify-content-end">
+											500 INR
+										</div>
+									</div>
+									<div className="row mt-2 detail-foot ">
+										<div className="col-md-10"> Food</div>
+										<div className="col-md-2 d-flex justify-content-end">
+											10/12/22
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="card-body">
+							<div className="card detail-card">
+								<div className="card-body">
+									<div className="row detail-head">
+										<div className="col-md-10">
+											{" "}
+											Grocery
+										</div>
+										<div className="col-md-2 d-flex justify-content-end">
+											500 INR
+										</div>
+									</div>
+									<div className="row mt-2 detail-foot ">
+										<div className="col-md-10"> Food</div>
+										<div className="col-md-2 d-flex justify-content-end">
+											10/12/22
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="card-body">
+							<div className="card detail-card">
+								<div className="card-body">
+									<div className="row detail-head">
+										<div className="col-md-10">
+											{" "}
+											Grocery
+										</div>
+										<div className="col-md-2 d-flex justify-content-end">
+											500 INR
+										</div>
+									</div>
+									<div className="row mt-2 detail-foot ">
+										<div className="col-md-10"> Food</div>
+										<div className="col-md-2 d-flex justify-content-end">
+											10/12/22
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 					<button>Add Expense</button>
 					<button>Log Out</button>
