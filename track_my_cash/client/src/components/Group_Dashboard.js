@@ -12,6 +12,7 @@ import Cookies from "universal-cookie";
 const cookies = new Cookies();
 const GroupDashBoard = () => {
 	const [membersArr, setmembersArr] = useState(members);
+	const [mems, setmems] = useState([]);
 	const onChangeState = (newState) => {
 		setmembersArr(newState);
 		// console.log(membersArr);
@@ -26,6 +27,15 @@ const GroupDashBoard = () => {
 				});
 		};
 		fetchExpenses();
+
+		const fetchMembers = async (e) => {
+			await axios
+				.get("http://localhost:5000/groups/members/" + group_id.id)
+				.then((res) => {
+					setmems(res.data);
+				});
+		};
+		fetchMembers();
 	}, []);
 
 	return (
@@ -33,10 +43,11 @@ const GroupDashBoard = () => {
 			<div>
 				<Sidebar />
 				<FloatingSidebar
+					membersProps={mems}
 					logo={{ flag: true }}
 					state={membersArr}
 					setState={onChangeState}
-					group_id= {group_id.id}
+					group_id={group_id.id}
 				/>
 
 				<div className="container mt-4">

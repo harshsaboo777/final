@@ -6,20 +6,10 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 let members = [];
 
-function Add_Group_expense({ setOpenModal, state, setState }) {
+function Add_Group_expense({ membersProps, setOpenModal, state, setState }) {
 	const cookies = new Cookies();
 	const Member_Id = cookies.get("Member").mem_id;
-	useEffect(() => {
-		console.log(group_id);
-		const fetchMembers = async (e) => {
-			await axios
-				.get("http://localhost:5000/groups/members/" + group_id)
-				.then((res) => {
-					members = res.data;
-				});
-		};
-		fetchMembers();
-	}, []);
+	members = membersProps;
 	const getCurrentDate = (separator = "/") => {
 		let newDate = new Date();
 		let date = newDate.getDate();
