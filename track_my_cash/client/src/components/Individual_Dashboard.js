@@ -5,6 +5,7 @@ import "../componentsStyles/group_dashboard.css";
 import ExpenseCard from "./Expense_Card";
 import members from "./tempMembers";
 import { useParams } from "react-router-dom";
+import AddIndividualExpense from "./Add_Individual_expense";
 import axios from "axios";
 import Cookies from "universal-cookie";
 
@@ -17,6 +18,7 @@ const IndividualDashBoard = () => {
 	const [member, setMember] = useState({});
 	const [membersExpenses, setmembersExpenses] = useState(Expenses);
 	const [types, settypes] = useState([]);
+	const [modalOpen, setModalOpen] = useState(false);
 	const onChangeState = (newState) => {
 		setmembersExpenses(newState);
 		// console.log(membersArr);
@@ -32,21 +34,12 @@ const IndividualDashBoard = () => {
 				setMember(res.data);
 			});
 	};
-
+	const fetchTypes = async (e) => {
+		await axios.get("http://localhost:5000/member/types").then((res) => {
+			settypes(res.data);
+		});
+	};
 	useEffect(() => {
-		const fetchTypes = async (e) => {
-			await axios
-				.get("http://localhost:5000/member/types")
-				.then((res) => {
-					// console.log(res.data);
-					// onChnageState2(res.data);
-					// res.data.forEach((element) => {
-					// 	settypes([...types, element]);
-					// });
-					settypes(...res.data);
-					console.log(types);
-				});
-		};
 		fetchTypes();
 		fetchMember();
 	}, []);
@@ -55,6 +48,13 @@ const IndividualDashBoard = () => {
 		<React.Fragment>
 			<div>
 				<Sidebar />
+
+				{modalOpen && (
+					<AddIndividualExpense
+						setModalOpen={setModalOpen}
+						types={types}
+					/>
+				)}
 
 				<div className="container mt-4">
 					<div className="card">
@@ -66,11 +66,14 @@ const IndividualDashBoard = () => {
 										<div className="card-body">
 											<div className="row detail-head">
 												<div className="col-md-10">
-													{" "}
+													{types.map((type) => (
+														<p>{type.type}</p>
+													))}{" "}
 													{member.fname +
 														" " +
 														member.lname}
 												</div>
+												{console.log(types)}
 											</div>
 											<div className="row detail-head">
 												<div className="col-md-8">
@@ -238,7 +241,15 @@ const IndividualDashBoard = () => {
 							</div>
 						</div>
 					</div>
-					<button>Add Expense</button>
+					<button
+						onClick={() => {
+							modalOpen
+								? setModalOpen(false)
+								: setModalOpen(true);
+						}}
+					>
+						Add Expense
+					</button>
 					<button>Log Out</button>
 				</div>
 			</div>
