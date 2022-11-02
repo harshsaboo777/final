@@ -24,22 +24,45 @@ function Add_new_Group({ setOpenModal, state, setState }) {
 		name: "",
 		created_on: getCurrentDate(),
 	});
-	const handleInput = (e) => {
+	const [memberList, setmemberList] = useState([
+		{
+			mem_id: "",
+		},
+	]);
+	const handleGroupInput = (e) => {
 		const name = e.target.name;
 		const value = e.target.value;
 		setgroup({ ...group, [name]: value });
 	};
+	const handleMemInput = (index, e) => {
+		const name = e.target.name;
+		const value = e.target.value;
+		console.log(name, value, index);
+		memberList[index].mem_id = value;
+		setmemberList([...memberList]);
+	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		setgroup({ ...group, created_on: getCurrentDate() });
-		console.log(group);
+		if (group.name === "") {
+			alert("Group name cant be empty");
+		} else {
+			setgroup({ ...group, created_on: getCurrentDate() });
+			let json = {
+				group: group,
+				members: memberList,
+			};
+			console.log(json);
+			axios.post("http://localhost:5000/groups/add", json).then((res) => {
+				console.log(res.data);
+			});
 
-		axios.post("http://localhost:5000/groups/add", group).then((res) => {
-			console.log(res);
-		});
-
-		setOpenModal(false);
-		window.location.reload();
+			setOpenModal(false);
+			window.location.reload();
+		}
+	};
+	const addInputField = (e) => {
+		e.preventDefault();
+		setmemberList([...memberList, { mem_id: "" }]);
 	};
 
 	return (
@@ -66,9 +89,35 @@ function Add_new_Group({ setOpenModal, state, setState }) {
 									class="form-control"
 									name="name"
 									value={group.name}
-									onChange={handleInput}
+									onChange={handleGroupInput}
 									placeholder="Group Name"
+									required
 								/>
+								<label>Add Members</label>
+								{memberList.map((members, index) => (
+									<div className="d-flex">
+										<div>
+											<input
+												type="text"
+												class="form-control"
+												name="mem_id"
+												value={memberList[index].mem_id}
+												onChange={(e) =>
+													handleMemInput(index, e)
+												}
+												placeholder={
+													"Member Name " + index
+												}
+											/>
+											{memberList.length - 1 ===
+												index && (
+												<button onClick={addInputField}>
+													Add Member
+												</button>
+											)}
+										</div>
+									</div>
+								))}
 							</form>
 						</div>
 					</p>
