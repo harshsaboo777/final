@@ -5,22 +5,10 @@ import "../componentsStyles/modal.css";
 import axios from "axios";
 import Cookies from "universal-cookie";
 
-function AddIndividualExpense(){
-    const cookies = new Cookies();
+function AddIndividualExpense({ setModalOpen, types }) {
+	const cookies = new Cookies();
 	const Member_Id = cookies.get("Member").mem_id;
-
-    const handleDropdown = (e) => {
-		const { value } = e.target;
-		let name = "";
-		memberExpenses.paid_by = value;
-		membersArr.forEach((member) => {
-			if (member.mem_id == value) {
-				name = member.fname;
-			}
-		});
-		memberExpenses.fname = name;
-	};
-    const getCurrentDate = (separator = "/") => {
+	const getCurrentDate = (separator = "/") => {
 		let newDate = new Date();
 		let date = newDate.getDate();
 		let month = newDate.getMonth() + 1;
@@ -30,14 +18,26 @@ function AddIndividualExpense(){
 			month < 10 ? `0${month}` : `${month}`
 		}${separator}${date}`;
 	};
-
-    return (
+	const [Expense, setExpense] = useState({
+		mem_id: Member_Id,
+		amount: 0,
+		date: getCurrentDate(),
+		remarks: "",
+		expense_type_id: 19,
+	});
+	const handleSubmit = (e) => {
+		e.preventDefault();
+	};
+	const handleDropdown = (e) => {
+		const { value } = e.target;
+	};
+	return (
 		<div className="modalBackground">
 			<div className="modalContainer">
 				<div className="titleCloseBtn">
 					<button
 						onClick={() => {
-							setOpenModal(false);
+							setModalOpen(false);
 						}}
 					>
 						X
@@ -54,10 +54,12 @@ function AddIndividualExpense(){
 									class="custom-select mr-sm-2 form-select form-select-lg mb-3"
 									id="inlineFormCustomSelect"
 									required
-									onChange={handleDropdown}
+									// onChange={handleDropdown}
 								>
-									<option selected>Category </option>
-									{categoryArr.map((category) => (
+									<option selected onChange={handleDropdown}>
+										Category{" "}
+									</option>
+									{types.map((category) => (
 										<option
 											value={category.expense_type_id}
 											name={category.type}
@@ -66,8 +68,8 @@ function AddIndividualExpense(){
 										</option>
 									))}
 								</select>
-								
-								<input
+
+								{/* <input
 									type="text"
 									class="form-control"
 									name="remarks"
@@ -82,7 +84,7 @@ function AddIndividualExpense(){
 									value={memberExpenses.amount}
 									onChange={handleInput}
 									placeholder="Amount"
-								/>
+								/> */}
 							</form>
 						</div>
 					</p>
@@ -90,7 +92,7 @@ function AddIndividualExpense(){
 				<div className="footer">
 					<button
 						onClick={() => {
-							setOpenModal(false);
+							setModalOpen(false);
 						}}
 						id="cancelBtn"
 					>
@@ -104,4 +106,4 @@ function AddIndividualExpense(){
 		</div>
 	);
 }
-export default Add_Individual_Expense;
+export default AddIndividualExpense;
