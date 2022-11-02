@@ -20,10 +20,21 @@ export const showExpenses = async (req, res) => {
 	try {
 		expenses = await client.query(
 			"Select * from individual_expense where mem_id=$1 order by date desc",
-			[mem_id]
+			[parseInt(mem_id)]
 		);
 	} catch (error) {
 		console.log(error);
 	}
 	res.status(200).send(expenses.rows);
+};
+
+export const getExpenseTypes = async (req, res) => {
+	let types;
+	try {
+		types = await client.query("Select * from expense_type");
+		types = types.rows;
+		res.status(200).send(types);
+	} catch (e) {
+		console.log(e);
+	}
 };

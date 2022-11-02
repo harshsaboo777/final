@@ -16,19 +16,38 @@ const IndividualDashBoard = () => {
 	const Mem_Id = cookies.get("Member").mem_id;
 	const [member, setMember] = useState({});
 	const [membersExpenses, setmembersExpenses] = useState(Expenses);
+	const [types, settypes] = useState([]);
 	const onChangeState = (newState) => {
 		setmembersExpenses(newState);
 		// console.log(membersArr);
 	};
+	const onChnageState2 = (newState) => {
+		settypes(newState);
+	};
+
 	const fetchMember = async (e) => {
 		await axios
-			.get("http://localhost:5000/member/" + Mem_Id)
+			.get("http://localhost:5000/member/id/" + Mem_Id)
 			.then((res) => {
 				setMember(res.data);
-				console.log(res.data);
 			});
 	};
+
 	useEffect(() => {
+		const fetchTypes = async (e) => {
+			await axios
+				.get("http://localhost:5000/member/types")
+				.then((res) => {
+					// console.log(res.data);
+					// onChnageState2(res.data);
+					// res.data.forEach((element) => {
+					// 	settypes([...types, element]);
+					// });
+					settypes(...res.data);
+					console.log(types);
+				});
+		};
+		fetchTypes();
 		fetchMember();
 	}, []);
 
