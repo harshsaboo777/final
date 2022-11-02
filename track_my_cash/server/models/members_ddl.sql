@@ -92,20 +92,30 @@ create table shares(
 
 -- for charts user apne expense types khud bata sakta hai aur jab naya expense banaega to dropdown mein types select karega
 create table expense_type(
+    Expense_type_id bigserial,
     Mem_id bigserial,
-    Type varchar(20),
-    primary key(Mem_id,Type),
+    Type varchar(20) default 'default',
+    primary key(Expense_type_id) ,
     foreign key (Mem_id) references member
 );
-
+INSERT INTO expense_type(Mem_id,Type) VALUES (2,'Travel');
+INSERT INTO expense_type(Mem_id,Type) VALUES (1,'Food');
+INSERT INTO expense_type(Mem_id,Type) VALUES (3,'Rent');
 create table Individual_Expense(
     Expense_id bigserial,
     Mem_id bigserial,
     Amount numeric(15,2),
     Date timestamp,
     Remarks varchar(30),
-    Type varchar(20),
+    Expense_type_id bigserial,
     primary key (Expense_id),
-    foreign key (Mem_id) references member,
-    foreign key (Type) references expense_type
+    foreign key (Mem_id) references Member,
+    foreign key (Expense_type_id) references expense_type
+    
 );
+
+INSERT INTO Individual_Expense(Mem_id,Amount,Date,Remarks,Expense_type_id) values (1,100,NOW(),'Food1',2);
+INSERT INTO Individual_Expense(Mem_id,Amount,Date,Remarks,Expense_type_id) values (1,1000,NOW(),'Food2',2);
+INSERT INTO Individual_Expense(Mem_id,Amount,Date,Remarks,Expense_type_id) values (1,200,NOW(),'Food3',2);
+INSERT INTO Individual_Expense(Mem_id,Amount,Date,Remarks,Expense_type_id) values (1,300,NOW(),'Food4',2);
+INSERT INTO Individual_Expense(Mem_id,Amount,Date,Remarks,Expense_type_id) values (1,150,NOW(),'Food5',2);
