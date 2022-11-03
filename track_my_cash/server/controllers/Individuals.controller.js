@@ -19,8 +19,10 @@ export const showExpenses = async (req, res) => {
 	let expenses = [];
 	try {
 		expenses = await client.query(
+
 			"select remarks,ET.type,amount,date from Individual_Expense as IE inner join expense_type as ET on IE.Expense_type_id=ET.Expense_type_id where IE.Mem_id=$1;",
 			[mem_id]
+
 		);
 	} catch (err) {
 		console.log(err);
@@ -59,4 +61,15 @@ export const update_salary = async (req,res) =>{
 
 
 
+
+export const getExpenseTypes = async (req, res) => {
+	let types;
+	try {
+		types = await client.query("Select * from expense_type");
+		types = types.rows;
+		res.status(200).send(types);
+	} catch (e) {
+		console.log(e);
+	}
+};
 

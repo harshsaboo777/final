@@ -98,9 +98,15 @@ create table expense_type(
     primary key(Expense_type_id) ,
     foreign key (Mem_id) references member
 );
-INSERT INTO expense_type(Mem_id,Type) VALUES (2,'Travel');
-INSERT INTO expense_type(Mem_id,Type) VALUES (1,'Food');
-INSERT INTO expense_type(Mem_id,Type) VALUES (3,'Rent');
+INSERT INTO expense_type(Type) VALUES ('Other..');
+INSERT INTO expense_type(Type) VALUES ('Food');
+INSERT INTO expense_type(Type) VALUES ('Travel');
+INSERT INTO expense_type(Type) VALUES ('Rent');
+INSERT INTO expense_type(Type) VALUES ('Health Care');
+INSERT INTO expense_type(Type) VALUES ('Entertainment');
+INSERT INTO expense_type(Type) VALUES ('Groceries');
+INSERT INTO expense_type(Type) VALUES ('Utilities');
+
 create table Individual_Expense(
     Expense_id bigserial,
     Mem_id bigserial,

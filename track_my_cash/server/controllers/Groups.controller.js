@@ -48,8 +48,8 @@ export const addExpense = async (req, res) => {
 		);
 		await client.query(
 			"update belongs_to SET amount_due = amount_due+ $1 WHERE Group_id= $2 AND Mem_id=$3",
-			[amount,group_id,paid_by]
-		)
+			[amount, group_id, paid_by]
+		);
 		expense_id = expense_id.rows[0].max;
 		involved.forEach(async (member) => {
 			console.log(member);
@@ -59,8 +59,8 @@ export const addExpense = async (req, res) => {
 			);
 			await client.query(
 				"update belongs_to SET amount_due = amount_due- $1 WHERE Group_id= $2 AND Mem_id=$3",
-				[share_amount,group_id,member.mem_id]
-			)
+				[share_amount, group_id, member.mem_id]
+			);
 		});
 	} catch (err) {
 		console.log(err);
@@ -69,10 +69,24 @@ export const addExpense = async (req, res) => {
 };
 
 export const addGroup = async (req, res) => {
-	let mem_id = req.body.owner_id;
-	let group_name = req.body.name;
+	let mem_id = req.body.group.owner_id;
+	let group_name = req.body.group.name;
+	let memberList = req.body.members;
+	let members = new Set();
+	memberList.forEach;
 	let group_id;
+	let memberExists;
 	try {
+		memberList.forEach(async (member) => {
+			memberExists = await client.query(
+				"Select * from member where mem_id=$1",
+				[parseInt(member.mem_id)]
+			);
+			if (memberExists.rowCount == 0) {
+				res.send("Member " + member.mem_id + " does not exist");
+			}
+			members.add(member.mem_id);
+		});
 		await client.query(
 			"INSERT INTO Groups(Owner_id,Name,Created_on) VALUES ($1,$2,NOW())",
 			[parseInt(mem_id), group_name]
@@ -86,6 +100,18 @@ export const addGroup = async (req, res) => {
 			"INSERT INTO belongs_to(mem_id,group_id,amount_due) VALUES ($1,$2,0)",
 			[parseInt(mem_id), parseInt(group_id)]
 		);
+		members.forEach(async (member) => {
+			memberExists = await client.query(
+				"Select * from belongs_to where mem_id=$1 and group_id=$2",
+				[parseInt(member), parseInt(group_id)]
+			);
+			if (memberExists.rowCount === 0) {
+				await client.query(
+					"INSERT INTO belongs_to(mem_id,group_id,amount_due) VALUES ($1,$2,0)",
+					[parseInt(member), parseInt(group_id)]
+				);
+			}
+		});
 	} catch (err) {
 		console.log(err);
 	}
@@ -136,30 +162,32 @@ export const getMembers = async (req, res) => {
 	}
 };
 
-export const getTotalAmount = async(req,res)=>{
+export const getTotalAmount = async (req, res) => {
 	let group_id = req.params.id;
 	let Tamount;
 	try {
 		Tamount = await client.query(
-		"SELECT SUM(Amount) from Group_Expense WHERE Group_id=$1",[group_id]
-	);
-	console.log(Tamount);
-	res.status(200).send(Tamount);
-}catch(err){
-console.log(err);
-}
+			"SELECT SUM(Amount) from Group_Expense WHERE Group_id=$1",
+			[group_id]
+		);
+		console.log(Tamount);
+		res.status(200).send(Tamount);
+	} catch (err) {
+		console.log(err);
+	}
 };
 
-export const getShareAmount = async(req,res)=>{
+export const getShareAmount = async (req, res) => {
 	let group_id = req.params.id;
 	let Share_amount;
 	try {
 		Share_amount = await client.query(
-		"SELECT belongs_to.Mem_id,amount_due,fname,lname from belongs_to JOIN Member ON belongs_to.Mem_id= Member.Mem_id WHERE Group_id=$1;",[group_id]
-	);
-	console.log(Share_amount.rows);
-	res.status(200).send(Share_amount.rows);
-}catch(err){
-console.log(err);
-}
+			"SELECT belongs_to.Mem_id,amount_due,fname,lname from belongs_to JOIN Member ON belongs_to.Mem_id= Member.Mem_id WHERE Group_id=$1;",
+			[group_id]
+		);
+		console.log(Share_amount.rows);
+		res.status(200).send(Share_amount.rows);
+	} catch (err) {
+		console.log(err);
+	}
 };
