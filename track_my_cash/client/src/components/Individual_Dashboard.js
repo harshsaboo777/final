@@ -66,9 +66,7 @@ const IndividualDashBoard = () => {
 										<div className="card-body">
 											<div className="row detail-head">
 												<div className="col-md-10">
-													{types.map((type) => (
-														<p>{type.type}</p>
-													))}{" "}
+
 													{member.fname +
 														" " +
 														member.lname}

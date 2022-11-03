@@ -27,9 +27,25 @@ function AddIndividualExpense({ setModalOpen, types }) {
 	});
 	const handleSubmit = (e) => {
 		e.preventDefault();
+        setExpense({ ...Expense, date: getCurrentDate() });
+
+        console.log(Expense);
+        axios
+			.post("http://localhost:5000/member/addExpense",Expense)
+
+        setModalOpen=false;
+        //window.location.reload();
+
+			
+	};
+    const handleInput = (e) => {
+		const name = e.target.name;
+		const value = e.target.value;
+		setExpense({ ...Expense, [name]: value });
 	};
 	const handleDropdown = (e) => {
 		const { value } = e.target;
+        Expense.expense_type_id = value;
 	};
 	return (
 		<div className="modalBackground">
@@ -54,7 +70,7 @@ function AddIndividualExpense({ setModalOpen, types }) {
 									class="custom-select mr-sm-2 form-select form-select-lg mb-3"
 									id="inlineFormCustomSelect"
 									required
-									// onChange={handleDropdown}
+									 onChange={handleDropdown}
 								>
 									<option selected onChange={handleDropdown}>
 										Category{" "}
@@ -69,11 +85,11 @@ function AddIndividualExpense({ setModalOpen, types }) {
 									))}
 								</select>
 
-								{/* <input
+								<input
 									type="text"
 									class="form-control"
 									name="remarks"
-									value={memberExpenses.remarks}
+									value={Expense.remarks}
 									onChange={handleInput}
 									placeholder="Expense Type"
 								/>
@@ -81,10 +97,10 @@ function AddIndividualExpense({ setModalOpen, types }) {
 									type="text"
 									class="form-control"
 									name="amount"
-									value={memberExpenses.amount}
+									value={Expense.amount}
 									onChange={handleInput}
 									placeholder="Amount"
-								/> */}
+								/>
 							</form>
 						</div>
 					</p>

@@ -38,3 +38,24 @@ export const getExpenseTypes = async (req, res) => {
 		console.log(e);
 	}
 };
+
+
+export const addExpense = async (req, res) => {
+	let mem_id= parseInt(req.body.mem_id);
+	
+	//let date: getCurrentDate(),
+	let amount = (req.body.amount);
+	let remarks = req.body.remarks;
+	let expense_type_id= (req.body.expense_type_id);
+
+	console.log(req.body);
+	try {
+		await client.query(
+			"INSERT INTO Individual_Expense(Mem_id,Amount,Date,Remarks,Expense_type_id) values ($1,$2,NOW(),$3,$4);",
+			[mem_id, amount, remarks,expense_type_id]
+		);
+	} catch (err) {
+		console.log(err);
+	}
+	res.status(200).send("done");
+};
