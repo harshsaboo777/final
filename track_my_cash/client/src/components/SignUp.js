@@ -4,7 +4,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import GoogleIcon from "@mui/icons-material/Google";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import Button from '@mui/material/Button'; 
+import Button from "@mui/material/Button";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -22,10 +22,23 @@ const SignUp = () => {
 	});
 	const handleChange = (e) => {
 		const { name, value } = e.target;
-		setuser({
-			...user,
-			[name]: value,
-		});
+		let code = value.charCodeAt(value.length - 1);
+		if (
+			(code > 47 && code < 58) ||
+			(code > 64 && code < 91) ||
+			(code > 96 && code < 123) ||
+			value.charAt(value.length - 1) === "@" ||
+			value.charAt(value.length - 1) === "." ||
+			value.charAt(value.length - 1) === "_" ||
+			value.charAt(value.length - 1) === ""
+		) {
+			setuser({
+				...user,
+				[name]: value,
+			});
+		} else {
+			alert("Only aphanumeric characters or @,.,_ allowed");
+		}
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();

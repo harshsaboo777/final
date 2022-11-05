@@ -32,14 +32,25 @@ function Add_new_Group({ setOpenModal, state, setState }) {
 	const handleGroupInput = (e) => {
 		const name = e.target.name;
 		const value = e.target.value;
-		setgroup({ ...group, [name]: value });
+		let code = value.charCodeAt(value.length - 1);
+		if (
+			(code > 47 && code < 58) ||
+			(code > 64 && code < 91) ||
+			(code > 96 && code < 123) ||
+			value.charAt(value.length - 1) === "" ||
+			value.charAt(value.length - 1) === " "
+		) {
+			setgroup({ ...group, [name]: value });
+		}
 	};
 	const handleMemInput = (index, e) => {
 		const name = e.target.name;
 		const value = e.target.value;
-		console.log(name, value, index);
-		memberList[index].mem_id = value;
-		setmemberList([...memberList]);
+		let code = value.charCodeAt(value.length - 1);
+		if ((code > 47 && code < 58) || value.charAt(value.length - 1) === "") {
+			memberList[index].mem_id = value;
+			setmemberList([...memberList]);
+		}
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();

@@ -27,25 +27,39 @@ function AddIndividualExpense({ setModalOpen, types }) {
 	});
 	const handleSubmit = (e) => {
 		e.preventDefault();
-        setExpense({ ...Expense, date: getCurrentDate() });
+		setExpense({ ...Expense, date: getCurrentDate() });
 
-        console.log(Expense);
-        axios
-			.post("http://localhost:5000/member/addExpense",Expense)
+		console.log(Expense);
+		axios.post("http://localhost:5000/member/addExpense", Expense);
 
-        setModalOpen=false;
-        //window.location.reload();
-
-			
+		setModalOpen(false);
+		window.location.reload();
 	};
-    const handleInput = (e) => {
+	const handleAlphaInput = (e) => {
 		const name = e.target.name;
 		const value = e.target.value;
-		setExpense({ ...Expense, [name]: value });
+		let code = value.charCodeAt(value.length - 1);
+		if (
+			(code > 47 && code < 58) ||
+			(code > 64 && code < 91) ||
+			(code > 96 && code < 123) ||
+			value.charAt(value.length - 1) === "" ||
+			value.charAt(value.length - 1) === " "
+		) {
+			setExpense({ ...Expense, [name]: value });
+		}
+	};
+	const handleNumInput = (e) => {
+		const name = e.target.name;
+		const value = e.target.value;
+		let code = value.charCodeAt(value.length - 1);
+		if ((code > 47 && code < 58) || value.charAt(value.length - 1) === "") {
+			setExpense({ ...Expense, [name]: value });
+		}
 	};
 	const handleDropdown = (e) => {
 		const { value } = e.target;
-        Expense.expense_type_id = value;
+		Expense.expense_type_id = value;
 	};
 	return (
 		<div className="modalBackground">
@@ -70,7 +84,7 @@ function AddIndividualExpense({ setModalOpen, types }) {
 									class="custom-select mr-sm-2 form-select form-select-lg mb-3"
 									id="inlineFormCustomSelect"
 									required
-									 onChange={handleDropdown}
+									onChange={handleDropdown}
 								>
 									<option selected onChange={handleDropdown}>
 										Category{" "}
@@ -90,7 +104,7 @@ function AddIndividualExpense({ setModalOpen, types }) {
 									class="form-control"
 									name="remarks"
 									value={Expense.remarks}
-									onChange={handleInput}
+									onChange={handleAlphaInput}
 									placeholder="Expense Type"
 								/>
 								<input
@@ -98,7 +112,7 @@ function AddIndividualExpense({ setModalOpen, types }) {
 									class="form-control"
 									name="amount"
 									value={Expense.amount}
-									onChange={handleInput}
+									onChange={handleNumInput}
 									placeholder="Amount"
 								/>
 							</form>
