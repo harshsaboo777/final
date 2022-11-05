@@ -17,6 +17,28 @@ function Add_new_Mem({ setOpenModal, state, setState }) {
 		const value = e.target.value;
 		setgroup({ ...group, [name]: value });
 	};
+	const handleAlphaInput = (e) => {
+		const name = e.target.name;
+		const value = e.target.value;
+		let code = value.charCodeAt(value.length - 1);
+		if (
+			(code > 47 && code < 58) ||
+			(code > 64 && code < 91) ||
+			(code > 96 && code < 123) ||
+			value.charAt(value.length - 1) === "" ||
+			value.charAt(value.length - 1) === " "
+		) {
+			setgroup({ ...group, [name]: value });
+		}
+	};
+	const handleNumInput = (e) => {
+		const name = e.target.name;
+		const value = e.target.value;
+		let code = value.charCodeAt(value.length - 1);
+		if ((code > 47 && code < 58) || value.charAt(value.length - 1) === "") {
+			setgroup({ ...group, [name]: value });
+		}
+	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setgroup({ ...group });
@@ -60,7 +82,7 @@ function Add_new_Mem({ setOpenModal, state, setState }) {
 									class="form-control"
 									name="group_id"
 									value={group.group_id}
-									onChange={handleInput}
+									onChange={handleNumInput}
 									placeholder="Group ID"
 								/>
 								<input
@@ -68,7 +90,7 @@ function Add_new_Mem({ setOpenModal, state, setState }) {
 									class="form-control"
 									name="name"
 									value={group.name}
-									onChange={handleInput}
+									onChange={handleAlphaInput}
 									placeholder="Group Name"
 								/>
 							</form>

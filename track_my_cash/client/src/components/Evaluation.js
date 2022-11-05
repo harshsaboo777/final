@@ -8,9 +8,9 @@ import { useParams } from "react-router-dom";
 import Split_Card from "./Split_Card";
 const cookies = new Cookies();
 
-let Expense_List=[];
-let amount=0;
-let SplitList=[];
+let Expense_List = [];
+let amount = 0;
+let SplitList = [];
 
 function Evaluation() {
 	const group_id = useParams().id;
@@ -21,85 +21,96 @@ function Evaluation() {
 
 	const onChangeState = (newState) => {
 		setAmount(newState);
-		setShare(newState)
-		setSplit(newState)
+		setShare(newState);
+		setSplit(newState);
 	};
-	const calculate = async (e)=>{
+	const calculate = async (e) => {
 		//console.log(Share);
-    var Giver = new PriorityQueue(function (a, b) {
-      return a.cash - b.cash;
-    });
-    var Taker = new PriorityQueue(function (a, b) {
-      return a.cash - b.cash;
-    });
-	let n = Share.length;
-	for (let i = 0; i < n; i++) {
-		let h = Share[i].amount_due;
-		console.log(Share);
+		var Giver = new PriorityQueue(function (a, b) {
+			return a.cash - b.cash;
+		});
+		var Taker = new PriorityQueue(function (a, b) {
+			return a.cash - b.cash;
+		});
+		let n = Share.length;
+		for (let i = 0; i < n; i++) {
+			let h = Share[i].amount_due;
+			console.log(Share);
 
-		if (h > 0) {
-		  Taker.enq({
-			fName: Share[i].fname,
-			lName: Share[i].lname,
-			cash: h,
-		  });
-		} else if (h < 0) {
-		  Giver.enq({
-			fName: Share[i].fname,
-			lName: Share[i].lname,
-			cash: -h,
-		  });
+			if (h > 0) {
+				Taker.enq({
+					fName: Share[i].fname,
+					lName: Share[i].lname,
+					cash: h,
+				});
+			} else if (h < 0) {
+				Giver.enq({
+					fName: Share[i].fname,
+					lName: Share[i].lname,
+					cash: -h,
+				});
+			}
 		}
-	  }
 
-	  while (Taker.size() !== 0 && Giver.size() !== 0) {
-		let diff = Taker.peek().cash - Giver.peek().cash;
-		console.log(Taker.size(), Giver.size());
-		let fName1 = Taker.peek().fName;
-		let lName1 = Taker.peek().lName;
-		let fName2 = Giver.peek().fName;
-		let lName2 = Giver.peek().lName;
-		let val1 = Taker.peek().cash;
-		let val2 = Giver.peek().cash;
-		Giver.deq();
-		Taker.deq();
-  
-		if (diff < 0) {
-		  Giver.enq({
-			fName: fName2,
-			lName: lName2,
-			cash: -diff,
-		  });
-		  //let tem = "Person " + id2 + "--> Person " + id1 + " : " + val1;
-		  let temp =  {Name2:fName2+ " " + lName2,Name1:fName1+" "+lName1,val:val1};
-		  tempu.push(temp);
-		} else if (diff > 0) {
-		  Taker.enq({
-			fName: fName1,
-			lName: lName1,
-			cash: diff,
-		  });
-		 // let tem = "Person " + id2 + "--> Person " + id1 + " : " + val2;
-		 let temp =  {Name2:fName2+ " " + lName2,Name1:fName1+" "+lName1,val:val2};
+		while (Taker.size() !== 0 && Giver.size() !== 0) {
+			let diff = Taker.peek().cash - Giver.peek().cash;
+			console.log(Taker.size(), Giver.size());
+			let fName1 = Taker.peek().fName;
+			let lName1 = Taker.peek().lName;
+			let fName2 = Giver.peek().fName;
+			let lName2 = Giver.peek().lName;
+			let val1 = Taker.peek().cash;
+			let val2 = Giver.peek().cash;
+			Giver.deq();
+			Taker.deq();
 
-		  tempu.push(temp);
-		} else {
-		  
-		 // let temp = "Person " + id2 + "--> Person " + id1 + " : " + val1;
-		 let temp =  {Name2:fName2+ " " + lName2,Name1:fName1+" "+lName1,val:val1};
+			if (diff < 0) {
+				Giver.enq({
+					fName: fName2,
+					lName: lName2,
+					cash: -diff,
+				});
+				//let tem = "Person " + id2 + "--> Person " + id1 + " : " + val1;
+				let temp = {
+					Name2: fName2 + " " + lName2,
+					Name1: fName1 + " " + lName1,
+					val: val1,
+				};
+				tempu.push(temp);
+			} else if (diff > 0) {
+				Taker.enq({
+					fName: fName1,
+					lName: lName1,
+					cash: diff,
+				});
+				// let tem = "Person " + id2 + "--> Person " + id1 + " : " + val2;
+				let temp = {
+					Name2: fName2 + " " + lName2,
+					Name1: fName1 + " " + lName1,
+					val: val2,
+				};
 
-		  tempu.push(temp);
+				tempu.push(temp);
+			} else {
+				// let temp = "Person " + id2 + "--> Person " + id1 + " : " + val1;
+				let temp = {
+					Name2: fName2 + " " + lName2,
+					Name1: fName1 + " " + lName1,
+					val: val1,
+				};
+
+				tempu.push(temp);
+			}
+			if (Taker.size() === 0) {
+				console.log("hi");
+				break;
+			}
 		}
-		if (Taker.size() === 0) {
-		  console.log("hi");
-		  break;
-		}
-	  }
 
-	 console.log(tempu);
-	}
+		console.log(tempu);
+	};
 	calculate();
-	
+
 	//calculate();
 
 	useEffect(() => {
@@ -118,21 +129,15 @@ function Evaluation() {
 					//console.log(res.data);
 					setShare(res.data);
 					console.log(Share);
-
 				});
-
-					
-
 		};
 		fetchAmount();
-
-		
 	}, []);
 	return (
 		<React.Fragment>
 			<div>
 				<Sidebar />
-				
+
 				<div className="container mt-4">
 					<div className="card">
 						{/* <div className="card-header">Featured</div> */}
@@ -160,17 +165,17 @@ function Evaluation() {
 					<div className="card mt-4">
 						<div className="card-header">Summary</div>
 						<div className="card-body">
-						{Share.map((memShare) => {
-										return <Share_Card content={memShare} />;
-									})}
+							{Share.map((memShare) => {
+								return <Share_Card content={memShare} />;
+							})}
 						</div>
 					</div>
 					<div className="card mt-4">
 						<div className="card-header">How to settle?</div>
 						<div className="card-body">
-						{tempu.map((memSplit) => {
-										return <Split_Card content={memSplit} />;
-									})}
+							{tempu.map((memSplit) => {
+								return <Split_Card content={memSplit} />;
+							})}
 						</div>
 					</div>
 				</div>

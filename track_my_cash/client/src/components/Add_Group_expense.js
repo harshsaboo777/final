@@ -30,10 +30,27 @@ function Add_Group_expense({ membersProps, setOpenModal, state, setState }) {
 		added_by: Member_Id,
 	});
 	const [membersArr, setMembersArr] = useState(members);
-	const handleInput = (e) => {
+	const handleAlphaInput = (e) => {
 		const name = e.target.name;
 		const value = e.target.value;
-		setmemberExpenses({ ...memberExpenses, [name]: value });
+		let code = value.charCodeAt(value.length - 1);
+		if (
+			(code > 47 && code < 58) ||
+			(code > 64 && code < 91) ||
+			(code > 96 && code < 123) ||
+			value.charAt(value.length - 1) === "" ||
+			value.charAt(value.length - 1) === " "
+		) {
+			setmemberExpenses({ ...memberExpenses, [name]: value });
+		}
+	};
+	const handleNumInput = (e) => {
+		const name = e.target.name;
+		const value = e.target.value;
+		let code = value.charCodeAt(value.length - 1);
+		if ((code > 47 && code < 58) || value.charAt(value.length - 1) === "") {
+			setmemberExpenses({ ...memberExpenses, [name]: value });
+		}
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -130,7 +147,7 @@ function Add_Group_expense({ membersProps, setOpenModal, state, setState }) {
 									class="form-control"
 									name="remarks"
 									value={memberExpenses.remarks}
-									onChange={handleInput}
+									onChange={handleAlphaInput}
 									placeholder="Expense Type"
 								/>
 								<input
@@ -138,7 +155,7 @@ function Add_Group_expense({ membersProps, setOpenModal, state, setState }) {
 									class="form-control"
 									name="amount"
 									value={memberExpenses.amount}
-									onChange={handleInput}
+									onChange={handleNumInput}
 									placeholder="Amount"
 								/>
 							</form>

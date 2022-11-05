@@ -6,7 +6,7 @@ import Group_Card from "./Group_Card";
 import groups from "./tempGroups";
 import axios from "axios";
 
-import Cookies from 'universal-cookie';
+import Cookies from "universal-cookie";
 import { Navigate, useNavigate } from "react-router-dom";
 
 // import members from "./Add_Group_expense";
@@ -28,7 +28,6 @@ const GroupList = ({ User }) => {
 	const [groupsArr, setgroupsArr] = useState(groups);
 	const onChangeState = (newState) => {
 		setgroupsArr(newState);
-
 	};
 	useEffect(() => {
 		const fetchGroups = async (e) => {
@@ -37,7 +36,6 @@ const GroupList = ({ User }) => {
 				.then((res) => {
 					setgroupsArr(res.data.rows);
 					console.log(groupsArr);
-
 				});
 		};
 		fetchGroups();
@@ -50,7 +48,8 @@ const GroupList = ({ User }) => {
 				<FloatingSidebar
 					logo={{ flag: true }}
 					state={groupsArr}
-					setState={onChangeState}/>
+					setState={onChangeState}
+				/>
 
 				<div className="container mt-4">
 					<div className="card">
