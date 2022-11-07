@@ -39,12 +39,14 @@ function Evaluation() {
 
 			if (h > 0) {
 				Taker.enq({
+					Mem_id: Share[i].mem_id,
 					fName: Share[i].fname,
 					lName: Share[i].lname,
 					cash: h,
 				});
 			} else if (h < 0) {
 				Giver.enq({
+					Mem_id: Share[i].mem_id,
 					fName: Share[i].fname,
 					lName: Share[i].lname,
 					cash: -h,
@@ -57,8 +59,10 @@ function Evaluation() {
 			console.log(Taker.size(), Giver.size());
 			let fName1 = Taker.peek().fName;
 			let lName1 = Taker.peek().lName;
+			let Mem_id1 = Taker.peek().Mem_id;
 			let fName2 = Giver.peek().fName;
 			let lName2 = Giver.peek().lName;
+			let Mem_id2 = Giver.peek().Mem_id;
 			let val1 = Taker.peek().cash;
 			let val2 = Giver.peek().cash;
 			Giver.deq();
@@ -66,12 +70,14 @@ function Evaluation() {
 
 			if (diff < 0) {
 				Giver.enq({
+					Mem_id: Mem_id2,
 					fName: fName2,
 					lName: lName2,
 					cash: -diff,
 				});
 				//let tem = "Person " + id2 + "--> Person " + id1 + " : " + val1;
 				let temp = {
+					Mem_id: Mem_id1,
 					Name2: fName2 + " " + lName2,
 					Name1: fName1 + " " + lName1,
 					val: val1,
@@ -79,13 +85,16 @@ function Evaluation() {
 				tempu.push(temp);
 			} else if (diff > 0) {
 				Taker.enq({
+					Mem_id: Mem_id1,
 					fName: fName1,
 					lName: lName1,
 					cash: diff,
 				});
 				// let tem = "Person " + id2 + "--> Person " + id1 + " : " + val2;
 				let temp = {
+					Mem_id2: Mem_id2,
 					Name2: fName2 + " " + lName2,
+					Mem_id1: Mem_id1,
 					Name1: fName1 + " " + lName1,
 					val: val2,
 				};
@@ -94,7 +103,9 @@ function Evaluation() {
 			} else {
 				// let temp = "Person " + id2 + "--> Person " + id1 + " : " + val1;
 				let temp = {
+					Mem_id2: Mem_id2,
 					Name2: fName2 + " " + lName2,
+					Mem_id1: Mem_id1,
 					Name1: fName1 + " " + lName1,
 					val: val1,
 				};

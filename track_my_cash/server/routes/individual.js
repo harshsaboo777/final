@@ -7,6 +7,7 @@ import {
 
 	getExpenseTypes,
 	addExpense,
+	getContact,
 
 } from "../controllers/Individuals.controller.js";
 
@@ -17,5 +18,5 @@ router.get("/id/:id", getMembers);
 router.get("/expenses/:id", showExpenses);
 router.post("/addExpense", addExpense);
 router.post("/updatesalary" , update_salary);
-
+router.post("/contact", getContact);
 export default router;

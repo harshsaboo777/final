@@ -13,6 +13,21 @@ export const getMembers = async (req, res) => {
 	}
 	res.status(200).send(member.rows[0]);
 };
+export const getContact = async (req, res) => {
+	console.log(req.body);
+	let mem_id = req.body.mem_id;
+	let contact;
+	try {
+		contact = await client.query(
+			"Select phone_num from member where mem_id=$1 ",
+			[parseInt(mem_id)]
+		);
+	} catch (error) {
+		console.log(error);
+	}
+	// console.log(contact.rows[0])
+	res.status(200).send(contact.rows[0]);
+};
 
 export const showExpenses = async (req, res) => {
 	let mem_id = req.params.id;
